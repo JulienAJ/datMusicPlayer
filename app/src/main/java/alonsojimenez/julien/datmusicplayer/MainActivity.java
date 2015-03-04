@@ -43,8 +43,8 @@ public class MainActivity extends ActionBarActivity
             String key = temp.getText().toString();
             if(key != null && key != "")
             {
-                ServerHandler.setSearchKey(key);
-                //intent = new Intent(this, SearchResultsActivity.class);
+                intent = new Intent(this, SearchResultsActivity.class);
+                intent.putExtra("searchKey", key);
             }
         }
 
