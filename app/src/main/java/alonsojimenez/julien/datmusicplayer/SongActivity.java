@@ -4,14 +4,23 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
+
+import Player.song;
 
 
-public class SongView extends ActionBarActivity {
+public class SongActivity extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_song_view);
+
+        song s = ((ParcelableSong)getIntent().getParcelableExtra("SONG")).getSong();
+
+        ((TextView)findViewById(R.id.nameLabel)).setText(s.name);
+        ((TextView)findViewById(R.id.artistLabel)).setText(s.artist);
+
+        setContentView(R.layout.activity_song);
     }
 
 

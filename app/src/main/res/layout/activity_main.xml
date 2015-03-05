@@ -5,38 +5,60 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".MainActivity">
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="ADD"
-        android:id="@+id/add"
-        android:onClick="onAction"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="198dp" />
+    <TableLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true">
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="REMOVE"
-        android:id="@+id/remove"
-        android:onClick="onAction"
-        android:layout_below="@+id/add"
-        android:layout_centerHorizontal="true" />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ADD"
+            android:id="@+id/add"
+            android:onClick="onAction"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="50dp" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="SEARCH"
-        android:id="@+id/search"
-        android:onClick="onAction"
-        android:layout_below="@+id/remove"
-        android:layout_centerHorizontal="true" />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="REMOVE"
+            android:id="@+id/remove"
+            android:onClick="onAction"
+            android:layout_below="@+id/add"
+            android:layout_centerHorizontal="true" />
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/searchField"
-        android:layout_centerVertical="true"
-        android:layout_toStartOf="@+id/remove" />
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/artistSearchField"
+            android:layout_centerVertical="true"
+            android:layout_alignParentStart="true" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="SEARCH BY ARTIST"
+            android:id="@+id/artistSearchButton"
+            android:onClick="onAction"
+            android:layout_below="@+id/searchField" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/titleSearchField"
+            android:layout_centerVertical="true"
+            android:layout_alignParentStart="true" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="SEARCH BY TITLE"
+            android:id="@+id/titleSearchButton"
+            android:onClick="onAction"
+            android:layout_below="@+id/searchField" />
+
+    </TableLayout>
 
 </RelativeLayout>

@@ -6,19 +6,33 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context="alonsojimenez.julien.datmusicplayer.RemoveActivity">
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/pathRemove"
+    <TableLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="50dp" />
+        android:layout_centerHorizontal="true">
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="VALIDATE"
-        android:id="@+id/validateRemove"
-        android:layout_below="@+id/pathRemove"
-        android:layout_centerHorizontal="true" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Path"
+            android:id="@+id/pathLabelRemove" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/pathRemove"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="VALIDATE"
+            android:id="@+id/validateRemove"
+            android:onClick="onValidate"
+            android:layout_below="@+id/pathRemove"
+            android:layout_centerHorizontal="true" />
+
+    </TableLayout>
 </RelativeLayout>

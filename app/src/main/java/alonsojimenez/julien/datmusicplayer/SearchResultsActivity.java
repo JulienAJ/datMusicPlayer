@@ -1,6 +1,7 @@
 package alonsojimenez.julien.datmusicplayer;
 
-import android.graphics.Color;
+import android.content.Intent;
+import android.os.Parcelable;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -23,7 +24,13 @@ public class SearchResultsActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         String searchKey = getIntent().getExtras().getString("searchKey");
-        song[] results = ServerHandler.getServer().findByArtist(searchKey);
+        song[] results = null;
+
+        if(getIntent().getExtras().getBoolean("isArtist"))
+            results = ServerHandler.getServer().findByArtist(searchKey);
+        else if(!(getIntent().getExtras().getBoolean("isArtist")))
+            results = ServerHandler.getServer().findByTitle(searchKey);
+
         setContentView(R.layout.activity_search_results);
         new SearchSongLoader().run(results);
     }
@@ -53,7 +60,7 @@ public class SearchResultsActivity extends ActionBarActivity {
 
     private class SearchSongLoader extends Thread
     {
-        public void run(song[] songs)
+        public void run(final song[] songs)
         {
             final String c1 = "title";
             final String c2 = "artist";
@@ -87,6 +94,10 @@ public class SearchResultsActivity extends ActionBarActivity {
                     //view.setBackgroundColor(Color.LTGRAY);
                     //v = view;
                     //selectSong(songs[position]);
+                    Intent intent = new Intent(SearchResultsActivity.this, SongActivity.class);
+                    // set the song as an extra
+                    intent.putExtra("SONG", (Parcelable)(new ParcelableSong(songs[position])));
+                    startActivity(intent);
                 }
             });
         }
