@@ -23,14 +23,21 @@ public class SearchResultsActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        String searchKey = getIntent().getExtras().getString("searchKey");
         song[] results = null;
 
-        if(getIntent().getExtras().getBoolean("isArtist"))
-            results = ServerHandler.getServer().findByArtist(searchKey);
-        else if(!(getIntent().getExtras().getBoolean("isArtist")))
-            results = ServerHandler.getServer().findByTitle(searchKey);
+        if(getIntent().getExtras().getBoolean("isList"))
+            results = ServerHandler.getServer().list();
 
+        else
+        {
+            String searchKey = getIntent().getExtras().getString("searchKey");
+
+            if (getIntent().getExtras().getBoolean("isArtist"))
+                results = ServerHandler.getServer().findByArtist(searchKey);
+            else if (!(getIntent().getExtras().getBoolean("isArtist")))
+                results = ServerHandler.getServer().findByTitle(searchKey);
+
+        }
         setContentView(R.layout.activity_search_results);
         new SearchSongLoader().run(results);
     }

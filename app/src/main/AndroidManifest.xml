@@ -23,10 +23,6 @@
             android:label="@string/title_activity_add" >
         </activity>
         <activity
-            android:name=".RemoveActivity"
-            android:label="@string/title_activity_remove_view" >
-        </activity>
-        <activity
             android:name=".SearchResultsActivity"
             android:label="@string/title_activity_search_results" >
         </activity>

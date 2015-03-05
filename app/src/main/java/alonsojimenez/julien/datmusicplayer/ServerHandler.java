@@ -12,6 +12,7 @@ public class ServerHandler
     private static ServerPrx server = null;
     private static String hostname = "datdroplet.ovh";
     private static String port = "10000";
+    private static String streamingPort = "8090";
     private static String searchKey = null;
 
     public static Communicator getCommunicator() { return ic; }
@@ -22,6 +23,8 @@ public class ServerHandler
     public static void setHostname(String host) { host = hostname; }
     public static String getPort() { return port; }
     public static void setPort(String p) { port = p; }
+    public static String getStreamingPort() { return streamingPort; }
+    public static void setStreamingPort(String p) { streamingPort = p; }
     public static String getSearchKey() { return searchKey; }
     public static void setSearchKey(String key) { searchKey = key; }
 

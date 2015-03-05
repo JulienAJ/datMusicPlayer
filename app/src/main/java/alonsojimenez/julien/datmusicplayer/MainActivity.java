@@ -34,9 +34,6 @@ public class MainActivity extends ActionBarActivity
         if(findViewById(R.id.add) == v)
             intent = new Intent(this, AddActivity.class);
 
-        else if(findViewById(R.id.remove) == v)
-            intent = new Intent(this, RemoveActivity.class);
-
         else if(findViewById(R.id.artistSearchButton) == v)
         {
             TextView temp = (TextView)findViewById(R.id.artistSearchField);
@@ -46,6 +43,7 @@ public class MainActivity extends ActionBarActivity
                 intent = new Intent(this, SearchResultsActivity.class);
                 intent.putExtra("searchKey", key);
                 intent.putExtra("isArtist", true);
+                intent.putExtra("isList", false);
             }
         }
 
@@ -58,7 +56,14 @@ public class MainActivity extends ActionBarActivity
                 intent = new Intent(this, SearchResultsActivity.class);
                 intent.putExtra("searchKey", key);
                 intent.putExtra("isArtist", false);
+                intent.putExtra("isList", false);
             }
+        }
+
+        else if(findViewById(R.id.listButton) == v)
+        {
+            intent = new Intent(this, SearchResultsActivity.class);
+            intent.putExtra("isList", true);
         }
 
         if(intent != null)

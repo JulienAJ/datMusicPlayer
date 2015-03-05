@@ -14,7 +14,7 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="ADD"
+            android:text="ADD NEW SONG"
             android:id="@+id/add"
             android:onClick="onAction"
             android:layout_centerHorizontal="true"
@@ -23,18 +23,19 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="REMOVE"
-            android:id="@+id/remove"
+            android:text="LIST ALL SONGS"
+            android:id="@+id/listButton"
             android:onClick="onAction"
-            android:layout_below="@+id/add"
-            android:layout_centerHorizontal="true" />
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="50dp" />
 
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/artistSearchField"
             android:layout_centerVertical="true"
-            android:layout_alignParentStart="true" />
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="50dp"/>
 
         <Button
             android:layout_width="wrap_content"
@@ -49,7 +50,8 @@
             android:layout_height="wrap_content"
             android:id="@+id/titleSearchField"
             android:layout_centerVertical="true"
-            android:layout_alignParentStart="true" />
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="50dp"/>
 
         <Button
             android:layout_width="wrap_content"
