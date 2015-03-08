@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,15 +19,27 @@ import java.util.List;
 import Player.song;
 
 
-public class SearchResultsActivity extends ActionBarActivity {
+public class SearchResultsActivity extends ActionBarActivity
+{
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_search_results);
+    }
+
+    @Override
+    public void onResume()
+    {
+        super.onResume();
         song[] results = null;
 
         if(getIntent().getExtras().getBoolean("isList"))
+        {
             results = ServerHandler.getServer().list();
+            ((TextView)findViewById(R.id.listHeader)).setText("Registered Songs");
+        }
 
         else
         {
@@ -38,27 +51,36 @@ public class SearchResultsActivity extends ActionBarActivity {
                 results = ServerHandler.getServer().findByTitle(searchKey);
 
         }
-        setContentView(R.layout.activity_search_results);
-        new SearchSongLoader().run(results);
+        if(results.length == 0)
+        {
+            ((TextView)findViewById(R.id.listHeader)).setText("No Results");
+        }
+        else
+        {
+            new SearchSongLoader().run(results);
+        }
     }
 
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_search_results, menu);
         return true;
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_settings)
+        {
             return true;
         }
 
@@ -74,7 +96,8 @@ public class SearchResultsActivity extends ActionBarActivity {
 
             List<HashMap<String, String>> data = new ArrayList<>();
 
-            for (song s : songs) {
+            for(song s : songs)
+            {
                 HashMap<String, String> e = new HashMap<>();
 
                 e.put(c1, s.name);
@@ -86,23 +109,16 @@ public class SearchResultsActivity extends ActionBarActivity {
                     data,
                     android.R.layout.simple_list_item_2,
                     new String[]{c1, c2},
-                    new int[]{android.R.id.text1,
-                            android.R.id.text2});
+                    new int[]{android.R.id.text1, android.R.id.text2});
             ListView lv = (ListView)findViewById(R.id.searchResults);
             lv.setAdapter(adapter);
 
-            lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
+            lv.setOnItemClickListener(new AdapterView.OnItemClickListener()
+            {
                 @Override
-                public void onItemClick(AdapterView<?> parent, final View view,
-                                        int position, long id) {
-                    //if(v!=null)
-                    //    v.setBackgroundColor(Color.TRANSPARENT);
-                    //view.setBackgroundColor(Color.LTGRAY);
-                    //v = view;
-                    //selectSong(songs[position]);
+                public void onItemClick(AdapterView<?> parent, final View view, int position, long id)
+                {
                     Intent intent = new Intent(SearchResultsActivity.this, SongActivity.class);
-                    // set the song as an extra
                     intent.putExtra("SONG", (Parcelable)(new ParcelableSong(songs[position])));
                     startActivity(intent);
                 }

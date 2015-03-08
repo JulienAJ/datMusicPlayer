@@ -11,6 +11,14 @@
         android:layout_height="wrap_content"
         android:id="@+id/searchResults"
         android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/listHeader" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Results"
+        android:id="@+id/listHeader"
         android:layout_alignParentTop="true"
-        android:layout_alignParentBottom="true" />
+        android:layout_alignParentStart="true" />
 </RelativeLayout>

@@ -64,6 +64,11 @@ public class ServerHandler
 
     }
 
+    public static void destroyServer()
+    {
+        server = null;
+    }
+
     public static void destroy()
     {
         if (ic == null)

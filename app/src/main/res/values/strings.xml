@@ -1,10 +1,11 @@
 <resources>
-    <string name="app_name">datMusicPlayer</string>
+    <string name="app_name">Dat Music Player</string>
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
-    <string name="title_activity_add">AddActivity</string>
-    <string name="title_activity_remove_view">RemoveView</string>
-    <string name="title_activity_search_results">SearchResultsActivity</string>
-    <string name="title_activity_song_view">SongView</string>
+    <string name="title_activity_add">Add Song</string>
+    <string name="title_activity_remove_view">Remove</string>
+    <string name="title_activity_search_results">Results</string>
+    <string name="title_activity_song_view">Song</string>
+    <string name="title_activity_settings">Settings</string>
 </resources>

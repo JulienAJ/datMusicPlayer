@@ -4,67 +4,70 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context="alonsojimenez.julien.datmusicplayer.SongActivity">
+    tools:context="alonsojimenez.julien.datmusicplayer.SettingsActivity">
 
     <TableLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_centerHorizontal="true"
-        android:layout_alignParentTop="true">
+        android:layout_centerVertical="true"
+        android:layout_alignParentEnd="true">
 
         <TextView
+            android:text="Server Hostname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="NOTHING"
-            android:id="@+id/nameLabelSong"
-            android:layout_alignParentTop="true"
+            android:id="@+id/hostnameLabel" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/hostnameField"
+            android:layout_below="@+id/hostnameLabel"
             android:layout_alignParentStart="true" />
 
         <TextView
+            android:text="Server Port"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="NOTHING"
-            android:id="@+id/artistLabelSong"
-            android:layout_below="@+id/nameLabelSong"
+            android:id="@+id/portLabel" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/portField"
+            android:layout_below="@+id/portLabel"
             android:layout_alignParentStart="true" />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="PLAY"
-            android:id="@+id/playButton"
-            android:onClick="onPlay"
-            android:layout_below="@+id/artistLabelSong"
+            android:text="PING"
+            android:id="@+id/pingButton"
+            android:onClick="onPing"
+            android:layout_alignParentStart="true" />
+
+        <TextView
+            android:text="Status : OK"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/statusLabel" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="CANCEL"
+            android:id="@+id/cancelSettings"
+            android:onClick="onCancel"
             android:layout_alignParentStart="true" />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="PAUSE"
-            android:id="@+id/pauseButton"
-            android:onClick="onPause"
-            android:layout_below="@+id/playButton"
-            android:layout_alignParentStart="true" />
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="STOP"
-            android:id="@+id/stopButton"
-            android:onClick="onStopButton"
-            android:layout_below="@+id/pauseButton"
-            android:layout_alignParentStart="true" />
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="REMOVE"
-            android:onClick="onRemove"
-            android:id="@+id/removeButton"
-            android:layout_below="@+id/stopButton"
+            android:text="VALIDATE"
+            android:id="@+id/validateSettings"
+            android:onClick="onValidate"
             android:layout_alignParentStart="true" />
 
     </TableLayout>
+
 </RelativeLayout>
