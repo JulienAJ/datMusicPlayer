@@ -7,6 +7,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 
 public class AddActivity extends ActionBarActivity
@@ -28,6 +29,8 @@ public class AddActivity extends ActionBarActivity
         temp = (EditText)(findViewById(R.id.pathAdd));
         String path = temp.getText().toString();
         ServerHandler.getServer().addSong(name, artist, path);
+        Toast.makeText(getApplicationContext(), name + " by " + artist + " was successfully added",
+                Toast.LENGTH_SHORT).show();
         finish();
     }
 

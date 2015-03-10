@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.IOException;
 
@@ -93,7 +94,10 @@ public class SongActivity extends ActionBarActivity
     {
         ServerHandler.getServer().stop(token);
         ServerHandler.getServer().remove(s.path);
+        Toast.makeText(getApplicationContext(), s.name + " by " + s.artist + " was successfully removed",
+                Toast.LENGTH_SHORT).show();
         finish();
+
     }
 
     public void onPlay(View v)
