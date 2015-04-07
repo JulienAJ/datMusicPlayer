@@ -2,6 +2,9 @@ package alonsojimenez.julien.datmusicplayer;
 
 import android.app.Notification;
 import android.content.Intent;
+import android.media.AudioFormat;
+import android.media.AudioRecord;
+import android.media.MediaRecorder;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -9,15 +12,27 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.PopupWindow;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import Ice.AsyncResult;
 import Ice.Communicator;
 import Player.ServerPrx;
+import PocketSphinxIce.*;
 
 
 public class MainActivity extends ActionBarActivity
 {
+    private static final int REC_SR = 16000;
+    private static final int REC_CHAN = AudioFormat.CHANNEL_IN_MONO;
+    private static final int REC_ENC = AudioFormat.ENCODING_PCM_16BIT;
+    AudioRecord audioRecord = null;
+    int bufferSize;
+    short[] recordData;
+    int position;
+    boolean recording = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -25,6 +40,15 @@ public class MainActivity extends ActionBarActivity
 
         ServerHandler.initCommunicator();
         ServerHandler.initServer();
+
+        VoiceServerHandler.initCommunicator();
+        VoiceServerHandler.initServer();
+
+        bufferSize = AudioRecord.getMinBufferSize(REC_SR, REC_CHAN, REC_ENC);
+        recordData = new short[50*bufferSize];
+        audioRecord = new AudioRecord(MediaRecorder.AudioSource.MIC,
+                REC_SR, REC_CHAN,
+                REC_ENC, bufferSize);
 
         setContentView(R.layout.activity_main);
     }
@@ -103,5 +127,57 @@ public class MainActivity extends ActionBarActivity
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void onRecord(View v)
+    {
+        if(!recording)
+        {
+            recording = true;
+            position = 0;
+            audioRecord.startRecording();
+            new Thread(new Runnable() {
+                public void run() {
+                    while (position < bufferSize * 50 && audioRecord.getRecordingState() == AudioRecord.RECORDSTATE_RECORDING) {
+                        int temp = audioRecord.read(recordData, position, bufferSize);
+                        position += temp;
+                    }
+                }
+            }).start();
+        }
+        else
+        {
+            recording = false;
+            audioRecord.stop();
+
+            new Thread(new Runnable()
+            {
+                @Override
+                public void run()
+                {
+
+                    String result = null;
+                    try
+                    {
+                        /*ProgressBar spinner = (ProgressBar)findViewById(R.id.spinner);
+                        AsyncResult asyncResult = VoiceServerHandler.getServer().begin_decode(recordData);
+                        spinner.setVisibility(View.VISIBLE);
+
+                        asyncResult.waitForCompleted();
+                        result = VoiceServerHandler.getServer().end_decode(asyncResult);
+                        spinner.setVisibility(View.GONE);*/
+                        result = VoiceServerHandler.getServer().decode(recordData);
+                    }
+                    catch(PocketSphinxIce.Error e)
+                    {
+                        System.out.println(e.what);
+                    }
+                    if(result != null)
+                    {
+                        System.out.println("RESULTAT : " + result);
+                    }
+                }
+            }).start();
+        }
     }
 }
