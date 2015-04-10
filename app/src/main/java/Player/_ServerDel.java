@@ -45,4 +45,7 @@ public interface _ServerDel extends Ice._ObjectDel
 
     void stop(String id, java.util.Map<String, String> __ctx, Ice.Instrumentation.InvocationObserver __obsv)
         throws IceInternal.LocalExceptionWrapper;
+
+    boolean write(String name, int offset, byte[] data, java.util.Map<String, String> __ctx, Ice.Instrumentation.InvocationObserver __obsv)
+        throws IceInternal.LocalExceptionWrapper;
 }

@@ -37,4 +37,6 @@ public interface _ServerOperations
     void play(String id, Ice.Current __current);
 
     void stop(String id, Ice.Current __current);
+
+    boolean write(String name, int offset, byte[] data, Ice.Current __current);
 }

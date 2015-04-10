@@ -55,7 +55,6 @@ public class SongActivity extends ActionBarActivity
 
             //mediaPlayer.reset();
             mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-            //mediaPlayer.setOnPreparedListener(new preparedHandler());
             mediaPlayer.setOnPreparedListener(new preparedHandler());
 
             try

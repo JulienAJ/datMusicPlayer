@@ -165,4 +165,22 @@ public interface ServerPrx extends Ice.ObjectPrx
     public Ice.AsyncResult begin_stop(String id, java.util.Map<String, String> __ctx, Callback_Server_stop __cb);
 
     public void end_stop(Ice.AsyncResult __result);
+
+    public boolean write(String name, int offset, byte[] data);
+
+    public boolean write(String name, int offset, byte[] data, java.util.Map<String, String> __ctx);
+
+    public Ice.AsyncResult begin_write(String name, int offset, byte[] data);
+
+    public Ice.AsyncResult begin_write(String name, int offset, byte[] data, java.util.Map<String, String> __ctx);
+
+    public Ice.AsyncResult begin_write(String name, int offset, byte[] data, Ice.Callback __cb);
+
+    public Ice.AsyncResult begin_write(String name, int offset, byte[] data, java.util.Map<String, String> __ctx, Ice.Callback __cb);
+
+    public Ice.AsyncResult begin_write(String name, int offset, byte[] data, Callback_Server_write __cb);
+
+    public Ice.AsyncResult begin_write(String name, int offset, byte[] data, java.util.Map<String, String> __ctx, Callback_Server_write __cb);
+
+    public boolean end_write(Ice.AsyncResult __result);
 }

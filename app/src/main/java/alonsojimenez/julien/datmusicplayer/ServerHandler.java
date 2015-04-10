@@ -14,6 +14,7 @@ public class ServerHandler
     private static String port = "10000";
     private static String streamingPort = "8090";
     private static String searchKey = null;
+    private static int messageSizeMax = 1000000;
 
     public static Communicator getCommunicator() { return ic; }
     public static void setCommunicator(Communicator c) { ic = c; }
@@ -27,6 +28,7 @@ public class ServerHandler
     public static void setStreamingPort(String p) { streamingPort = p; }
     public static String getSearchKey() { return searchKey; }
     public static void setSearchKey(String key) { searchKey = key; }
+    public static int getMessageSizeMax() { return messageSizeMax; }
 
     public static void initCommunicator()
     {

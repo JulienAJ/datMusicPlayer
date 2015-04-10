@@ -110,6 +110,11 @@ public abstract class _ServerDisp extends Ice.ObjectImpl implements Server
         stop(id, null);
     }
 
+    public final boolean write(String name, int offset, byte[] data)
+    {
+        return write(name, offset, data, null);
+    }
+
     public static Ice.DispatchStatus ___addSong(Server __obj, IceInternal.Incoming __inS, Ice.Current __current)
     {
         __checkMode(Ice.OperationMode.Normal, __current.mode);
@@ -215,6 +220,24 @@ public abstract class _ServerDisp extends Ice.ObjectImpl implements Server
         return Ice.DispatchStatus.DispatchOK;
     }
 
+    public static Ice.DispatchStatus ___write(Server __obj, IceInternal.Incoming __inS, Ice.Current __current)
+    {
+        __checkMode(Ice.OperationMode.Normal, __current.mode);
+        IceInternal.BasicStream __is = __inS.startReadParams();
+        String name;
+        int offset;
+        byte[] data;
+        name = __is.readString();
+        offset = __is.readInt();
+        data = ByteSeqHelper.read(__is);
+        __inS.endReadParams();
+        boolean __ret = __obj.write(name, offset, data, __current);
+        IceInternal.BasicStream __os = __inS.__startWriteParams(Ice.FormatType.DefaultFormat);
+        __os.writeBool(__ret);
+        __inS.__endWriteParams(true);
+        return Ice.DispatchStatus.DispatchOK;
+    }
+
     private final static String[] __all =
     {
         "addSong",
@@ -228,7 +251,8 @@ public abstract class _ServerDisp extends Ice.ObjectImpl implements Server
         "play",
         "remove",
         "start",
-        "stop"
+        "stop",
+        "write"
     };
 
     public Ice.DispatchStatus __dispatch(IceInternal.Incoming in, Ice.Current __current)
@@ -288,6 +312,10 @@ public abstract class _ServerDisp extends Ice.ObjectImpl implements Server
             case 11:
             {
                 return ___stop(this, in, __current);
+            }
+            case 12:
+            {
+                return ___write(this, in, __current);
             }
         }
 

@@ -13,10 +13,24 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true">
 
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="200dp"
+            android:maxHeight="14.5sp"
+            android:maxWidth="14.5sp"
+            android:id="@+id/imgView" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/imageUploadButton"
+            android:id="@+id/uploadButton"
+            android:onClick="onChooseImg"/>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Title"
+            android:text="@string/title"
             android:id="@+id/titleLabelAdd" />
 
         <EditText
@@ -29,37 +43,39 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Artist"
+            android:text="@string/artist"
             android:id="@+id/artistLabelAdd" />
 
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/artistAdd"
-            android:layout_below="@+id/nameAdd"
-            android:layout_centerHorizontal="true" />
+            android:id="@+id/artistAdd" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Path"
+            android:text="@string/path"
             android:id="@+id/pathLabelAdd" />
 
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/pathAdd"
-            android:layout_below="@+id/artistAdd"
-            android:layout_centerHorizontal="true" />
+            android:editable="false"
+            android:id="@+id/pathAdd" />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="VALIDATE"
+            android:text="@string/changeSong"
+            android:id="@+id/changeSong"
+            android:onClick="onChooseSong" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/validate"
             android:id="@+id/validateAdd"
-            android:onClick="onValidate"
-            android:layout_below="@+id/pathAdd"
-            android:layout_centerHorizontal="true" />
+            android:onClick="onValidate" />
 
     </TableLayout>
 </RelativeLayout>

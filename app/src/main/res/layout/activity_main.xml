@@ -64,12 +64,7 @@
             android:textOff="RECORD"
             android:id="@+id/recordButton"
             android:onClick="onRecord"
-            android:layout_below="@+id/titleSearchButton" />
+            android:layout_below="@+id/uploadButton" />
 
-        <ProgressBar
-            android:id="@+id/spinner"
-            style="?android:attr/progressBarStyleLarge"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
 
     </TableLayout>

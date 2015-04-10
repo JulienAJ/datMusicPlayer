@@ -37,4 +37,6 @@ public interface _ServerOperationsNC
     void play(String id);
 
     void stop(String id);
+
+    boolean write(String name, int offset, byte[] data);
 }
