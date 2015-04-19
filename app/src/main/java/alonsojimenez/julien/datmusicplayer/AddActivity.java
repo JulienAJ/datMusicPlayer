@@ -1,5 +1,6 @@
 package alonsojimenez.julien.datmusicplayer;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.res.AssetFileDescriptor;
 import android.graphics.Bitmap;
@@ -7,17 +8,19 @@ import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.graphics.RectF;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.provider.MediaStore;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.util.Log;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import org.json.JSONObject;
 
 import java.io.BufferedInputStream;
 import java.io.FileNotFoundException;
@@ -34,6 +37,7 @@ public class AddActivity extends ActionBarActivity
     private static final int PICK_SONG_REQUEST = 1;
     private Uri coverUri = null;
     private Uri songUri = null;
+    private ProgressDialog progressDialog = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -45,26 +49,24 @@ public class AddActivity extends ActionBarActivity
     public void onValidate(View v)
     {
         if(songUri == null)
+        {
+            Log.e("Validate Add", "No Song Selected");
+            Toast.makeText(getApplicationContext(), getString(R.string.noSong), Toast.LENGTH_SHORT);
             return;
-
-        EditText temp = (EditText)(findViewById(R.id.nameAdd));
-        String name = temp.getText().toString();
-        temp = (EditText)(findViewById(R.id.artistAdd));
-        String artist = temp.getText().toString();
-
-        String upName = (artist + "_" + name).replaceAll(" ", "_");
-        String path = "songs/" + upName + ".mp3";
-        System.out.println("PATH : " + path);
-
-        if(coverUri != null)
-            upload(coverUri, false, upName);
-
-        upload(songUri, true, upName);
-
-        ServerHandler.getServer().addSong(name, artist, path);
-        Toast.makeText(getApplicationContext(), name + " by " + artist + " was successfully added",
-                Toast.LENGTH_SHORT).show();
-        finish();
+        }
+        if(((EditText)findViewById(R.id.nameAdd)).getText().toString().equals(""))
+        {
+            Log.e("Validate Add", "No title");
+            Toast.makeText(getApplicationContext(), getString(R.string.noTitle), Toast.LENGTH_SHORT);
+            return;
+        }
+        if(((EditText)findViewById(R.id.artistAdd)).getText().toString().equals(""))
+        {
+            Log.e("Validate Add", "No artist");
+            Toast.makeText(getApplicationContext(), getString(R.string.noArtist), Toast.LENGTH_SHORT);
+            return;
+        }
+        new Async().execute();
     }
 
     public void upload(Uri uri, boolean isSong, String name)
@@ -75,7 +77,6 @@ public class AddActivity extends ActionBarActivity
 
             AssetFileDescriptor assetFileDescriptor = getContentResolver().openAssetFileDescriptor(uri, "r");
             int size = (int)assetFileDescriptor.getLength();
-            System.out.println("DAT SIZE : " + size);
 
             byte[] data = new byte[size];
 
@@ -85,16 +86,12 @@ public class AddActivity extends ActionBarActivity
 
             String ext = MimeTypeMap.getSingleton().getExtensionFromMimeType(getContentResolver().getType(uri));
 
-            if(isSong)
-                name = "songs/" + name + "." + ext;
-            else
-                name = "covers/" + name + "." + ext;
+            name = name + "." + ext;
 
             int offset = 0;
 
             if(size <= ServerHandler.getMessageSizeMax())
             {
-                System.out.println("FIRST BYTE : " + (int)data[0]);
                 ServerHandler.getServer().write(name, offset, data);
             }
 
@@ -114,7 +111,8 @@ public class AddActivity extends ActionBarActivity
         }
         catch(IllegalMessageSizeException | IOException e)
         {
-            System.out.println(e.getMessage());
+            Log.e("Upload Exception", e.getMessage());
+            Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT);
         }
     }
 
@@ -134,7 +132,8 @@ public class AddActivity extends ActionBarActivity
                 }
                 catch (FileNotFoundException e)
                 {
-                    System.out.println(e.getMessage());
+                    Log.e("Cover Pick Exception", e.getMessage());
+                    Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT);
                 }
             }
             else if(requestCode == PICK_SONG_REQUEST)
@@ -157,34 +156,54 @@ public class AddActivity extends ActionBarActivity
         startActivityForResult(intent, PICK_SONG_REQUEST);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu)
-    {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_add, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item)
-    {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
     public Bitmap getScaledCover(Bitmap bmp, int width, int height)
     {
         Matrix m = new Matrix();
         m.setRectToRect(new RectF(0, 0, bmp.getWidth(), bmp.getHeight()), new RectF(0, 0, width, height), Matrix.ScaleToFit.CENTER);
         return Bitmap.createBitmap(bmp, 0, 0, bmp.getWidth(), bmp.getHeight(), m, true);
+    }
+
+    private class Async extends AsyncTask<Void, Integer, Void>
+    {
+        private String name, artist, upName, path;
+
+        protected void onPreExecute()
+        {
+            EditText temp = (EditText)(findViewById(R.id.nameAdd));
+            name = temp.getText().toString();
+            temp = (EditText)(findViewById(R.id.artistAdd));
+            artist = temp.getText().toString();
+
+            upName = (artist + "_" + name).replaceAll(" ", "_");
+            path = "songs/" + upName + ".mp3";
+
+            progressDialog = new ProgressDialog(AddActivity.this);
+            progressDialog.setMessage("Uploading...");
+            progressDialog.setCanceledOnTouchOutside(false);
+            //progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+            progressDialog.show();
+        }
+
+        @Override
+        protected Void doInBackground(Void... params)
+        {
+            if(coverUri != null)
+                upload(coverUri, false, upName);
+
+            upload(songUri, true, upName);
+
+            return null;
+        }
+
+        public void onPostExecute(Void result)
+        {
+            if(progressDialog.isShowing())
+                progressDialog.dismiss();
+
+            ServerHandler.getServer().addSong(name, artist, path);
+            Toast.makeText(getApplicationContext(), name + " " + getString(R.string.by) + " "
+                    + artist + " " + getString(R.string.addSuccess), Toast.LENGTH_SHORT).show();
+            finish();
+        }
     }
 }

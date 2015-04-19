@@ -26,72 +26,58 @@ public class SettingsActivity extends ActionBarActivity {
 
         oldHost = ServerHandler.getHostname();
         oldPort = ServerHandler.getPort();
-        ((EditText)findViewById(R.id.hostnameField)).setText(oldHost);
-        ((EditText)findViewById(R.id.portField)).setText(oldPort);
-        ((TextView)findViewById(R.id.statusLabel)).setTextColor(Color.GREEN);
-        ((Button)(findViewById(R.id.validateSettings))).setEnabled(false);
+        ((EditText) findViewById(R.id.hostnameField)).setText(oldHost);
+        ((EditText) findViewById(R.id.portField)).setText(oldPort);
+        ((TextView) findViewById(R.id.statusLabel)).setTextColor(Color.GREEN);
+        ((Button) (findViewById(R.id.validateSettings))).setEnabled(false);
     }
 
-    public void onPing(View v)
-    {
-        String newHost = ((EditText)(findViewById(R.id.hostnameField))).getText().toString();
-        String newPort = ((EditText)(findViewById(R.id.portField))).getText().toString();
+    public void onPing(View v) {
+        String newHost = ((EditText) (findViewById(R.id.hostnameField))).getText().toString();
+        String newPort = ((EditText) (findViewById(R.id.portField))).getText().toString();
 
-        if(oldHost.equals(newHost) && oldPort.equals(newPort))
+        if (oldHost.equals(newHost) && oldPort.equals(newPort))
             return;
 
         ServerHandler.setHostname(newHost);
         ServerHandler.setPort(newPort);
 
-        try
-        {
+        try {
             ServerHandler.destroyServer();
             ServerHandler.initServer();
-            if(ServerHandler.getServer() != null)
-            {
+            if (ServerHandler.getServer() != null) {
                 ServerHandler.getServer().ice_ping();
                 ((TextView) (findViewById(R.id.statusLabel))).setTextColor(Color.GREEN);
                 ((Button) (findViewById(R.id.validateSettings))).setEnabled(true);
+            } else {
+                ((TextView) (findViewById(R.id.statusLabel))).setTextColor(Color.RED);
+                ((Button) (findViewById(R.id.validateSettings))).setEnabled(false);
             }
-            else
-            {
-                ((TextView)(findViewById(R.id.statusLabel))).setTextColor(Color.RED);
-                ((Button)(findViewById(R.id.validateSettings))).setEnabled(false);
-            }
-        }
-        catch(LocalException e)
-        {
-            ((TextView)(findViewById(R.id.statusLabel))).setTextColor(Color.RED);
-            ((Button)(findViewById(R.id.validateSettings))).setEnabled(false);
+        } catch (LocalException e) {
+            ((TextView) (findViewById(R.id.statusLabel))).setTextColor(Color.RED);
+            ((Button) (findViewById(R.id.validateSettings))).setEnabled(false);
             System.err.println(e.getMessage());
         }
     }
 
-    public void onCancel(View v)
-    {
+    public void onCancel(View v) {
         ServerHandler.setHostname(oldHost);
         ServerHandler.setPort(oldPort);
 
-        try
-        {
+        try {
             ServerHandler.destroyServer();
             ServerHandler.initServer();
-            if(ServerHandler.getServer() != null)
-            {
+            if (ServerHandler.getServer() != null) {
                 ServerHandler.getServer().ice_ping();
                 ((TextView) (findViewById(R.id.statusLabel))).setTextColor(Color.GREEN);
                 ((Button) (findViewById(R.id.validateSettings))).setEnabled(true);
+            } else {
+                ((TextView) (findViewById(R.id.statusLabel))).setTextColor(Color.RED);
+                ((Button) (findViewById(R.id.validateSettings))).setEnabled(false);
             }
-            else
-            {
-                ((TextView)(findViewById(R.id.statusLabel))).setTextColor(Color.RED);
-                ((Button)(findViewById(R.id.validateSettings))).setEnabled(false);
-            }
-        }
-        catch(LocalException e)
-        {
-            ((TextView)(findViewById(R.id.statusLabel))).setTextColor(Color.RED);
-            ((Button)(findViewById(R.id.validateSettings))).setEnabled(false);
+        } catch (LocalException e) {
+            ((TextView) (findViewById(R.id.statusLabel))).setTextColor(Color.RED);
+            ((Button) (findViewById(R.id.validateSettings))).setEnabled(false);
             System.err.println(e.getMessage());
         }
 
@@ -100,27 +86,5 @@ public class SettingsActivity extends ActionBarActivity {
     public void onValidate(View v)
     {
         finish();
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_settings, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 }

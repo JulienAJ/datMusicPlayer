@@ -14,7 +14,7 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="ADD NEW SONG"
+            android:text="@string/addSong"
             android:id="@+id/add"
             android:onClick="onAction"
             android:layout_marginTop="50dp" />
@@ -22,7 +22,7 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="LIST ALL SONGS"
+            android:text="@string/listSongs"
             android:id="@+id/listButton"
             android:onClick="onAction"
             android:layout_marginTop="50dp" />
@@ -32,12 +32,14 @@
             android:layout_height="wrap_content"
             android:id="@+id/artistSearchField"
             android:layout_alignParentStart="true"
+            android:singleLine="true"
+            android:imeOptions="actionSearch"
             android:layout_marginTop="50dp"/>
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="SEARCH BY ARTIST"
+            android:text="@string/artistSearch"
             android:id="@+id/artistSearchButton"
             android:onClick="onAction"
             android:layout_below="@+id/searchField" />
@@ -46,13 +48,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/titleSearchField"
+            android:imeOptions="actionSearch"
+            android:singleLine="true"
             android:layout_alignParentStart="true"
             android:layout_marginTop="50dp"/>
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="SEARCH BY TITLE"
+            android:text="@string/titleSearch"
             android:id="@+id/titleSearchButton"
             android:onClick="onAction"
             android:layout_below="@+id/searchField" />
@@ -60,8 +64,8 @@
         <ToggleButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textOn="RECORDING"
-            android:textOff="RECORD"
+            android:textOn="@string/recordOn"
+            android:textOff="@string/recordOff"
             android:id="@+id/recordButton"
             android:onClick="onRecord"
             android:layout_below="@+id/uploadButton" />

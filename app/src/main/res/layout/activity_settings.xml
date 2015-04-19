@@ -13,7 +13,7 @@
         android:layout_alignParentEnd="true">
 
         <TextView
-            android:text="Server Hostname"
+            android:text="@string/serverHostname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/hostnameLabel" />
@@ -26,7 +26,7 @@
             android:layout_alignParentStart="true" />
 
         <TextView
-            android:text="Server Port"
+            android:text="@string/serverPort"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/portLabel" />
@@ -41,13 +41,13 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="PING"
+            android:text="@string/ping"
             android:id="@+id/pingButton"
             android:onClick="onPing"
             android:layout_alignParentStart="true" />
 
         <TextView
-            android:text="Status : OK"
+            android:text="@string/statusOK"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/statusLabel" />
@@ -55,7 +55,7 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="CANCEL"
+            android:text="@string/cancel"
             android:id="@+id/cancelSettings"
             android:onClick="onCancel"
             android:layout_alignParentStart="true" />
@@ -63,7 +63,7 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="VALIDATE"
+            android:text="@string/validate"
             android:id="@+id/validateSettings"
             android:onClick="onValidate"
             android:layout_alignParentStart="true" />

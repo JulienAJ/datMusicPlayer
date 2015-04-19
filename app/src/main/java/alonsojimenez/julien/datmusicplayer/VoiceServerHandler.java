@@ -13,7 +13,8 @@ public class VoiceServerHandler
 {
     private static Communicator ic = null;
     private static IPocketSphinxServerPrx server = null;
-    private static String hostname = "188.226.241.233";
+    //private static String hostname = "188.226.241.233";
+    private static String hostname = "server.datdroplet.ovh";
     private static String port = "20000";
     private static String searchKey = null;
 
