@@ -22,6 +22,10 @@ package Player;
 
 public interface _ServerOperationsNC
 {
+    int getCount();
+
+    String getStreamingPort();
+
     void addSong(String name, String artist, String path);
 
     void remove(String path);
@@ -29,6 +33,10 @@ public interface _ServerOperationsNC
     song[] findByTitle(String name);
 
     song[] findByArtist(String artist);
+
+    song findByBoth(String title, String artist);
+
+    song[] findByAny(String searchKey);
 
     song[] list();
 
@@ -38,5 +46,7 @@ public interface _ServerOperationsNC
 
     void stop(String id);
 
-    boolean write(String name, int offset, byte[] data);
+    void write(String name, int offset, byte[] data);
+
+    byte[] read(String filename, int offset, int count);
 }

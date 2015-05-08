@@ -72,6 +72,54 @@ public final class _ServerDelM extends Ice._ObjectDelM implements _ServerDel
     }
 
     public song[]
+    findByAny(String searchKey, java.util.Map<String, String> __ctx, Ice.Instrumentation.InvocationObserver __observer)
+        throws IceInternal.LocalExceptionWrapper
+    {
+        IceInternal.Outgoing __og = __handler.getOutgoing("findByAny", Ice.OperationMode.Normal, __ctx, __observer);
+        try
+        {
+            try
+            {
+                IceInternal.BasicStream __os = __og.startWriteParams(Ice.FormatType.DefaultFormat);
+                __os.writeString(searchKey);
+                __og.endWriteParams();
+            }
+            catch(Ice.LocalException __ex)
+            {
+                __og.abort(__ex);
+            }
+            boolean __ok = __og.invoke();
+            try
+            {
+                if(!__ok)
+                {
+                    try
+                    {
+                        __og.throwUserException();
+                    }
+                    catch(Ice.UserException __ex)
+                    {
+                        throw new Ice.UnknownUserException(__ex.ice_name(), __ex);
+                    }
+                }
+                IceInternal.BasicStream __is = __og.startReadParams();
+                song[] __ret;
+                __ret = songSeqHelper.read(__is);
+                __og.endReadParams();
+                return __ret;
+            }
+            catch(Ice.LocalException __ex)
+            {
+                throw new IceInternal.LocalExceptionWrapper(__ex, false);
+            }
+        }
+        finally
+        {
+            __handler.reclaimOutgoing(__og);
+        }
+    }
+
+    public song[]
     findByArtist(String artist, java.util.Map<String, String> __ctx, Ice.Instrumentation.InvocationObserver __observer)
         throws IceInternal.LocalExceptionWrapper
     {
@@ -105,6 +153,56 @@ public final class _ServerDelM extends Ice._ObjectDelM implements _ServerDel
                 IceInternal.BasicStream __is = __og.startReadParams();
                 song[] __ret;
                 __ret = songSeqHelper.read(__is);
+                __og.endReadParams();
+                return __ret;
+            }
+            catch(Ice.LocalException __ex)
+            {
+                throw new IceInternal.LocalExceptionWrapper(__ex, false);
+            }
+        }
+        finally
+        {
+            __handler.reclaimOutgoing(__og);
+        }
+    }
+
+    public song
+    findByBoth(String title, String artist, java.util.Map<String, String> __ctx, Ice.Instrumentation.InvocationObserver __observer)
+        throws IceInternal.LocalExceptionWrapper
+    {
+        IceInternal.Outgoing __og = __handler.getOutgoing("findByBoth", Ice.OperationMode.Normal, __ctx, __observer);
+        try
+        {
+            try
+            {
+                IceInternal.BasicStream __os = __og.startWriteParams(Ice.FormatType.DefaultFormat);
+                __os.writeString(title);
+                __os.writeString(artist);
+                __og.endWriteParams();
+            }
+            catch(Ice.LocalException __ex)
+            {
+                __og.abort(__ex);
+            }
+            boolean __ok = __og.invoke();
+            try
+            {
+                if(!__ok)
+                {
+                    try
+                    {
+                        __og.throwUserException();
+                    }
+                    catch(Ice.UserException __ex)
+                    {
+                        throw new Ice.UnknownUserException(__ex.ice_name(), __ex);
+                    }
+                }
+                IceInternal.BasicStream __is = __og.startReadParams();
+                song __ret;
+                __ret = new song();
+                __ret.__read(__is);
                 __og.endReadParams();
                 return __ret;
             }
@@ -153,6 +251,84 @@ public final class _ServerDelM extends Ice._ObjectDelM implements _ServerDel
                 IceInternal.BasicStream __is = __og.startReadParams();
                 song[] __ret;
                 __ret = songSeqHelper.read(__is);
+                __og.endReadParams();
+                return __ret;
+            }
+            catch(Ice.LocalException __ex)
+            {
+                throw new IceInternal.LocalExceptionWrapper(__ex, false);
+            }
+        }
+        finally
+        {
+            __handler.reclaimOutgoing(__og);
+        }
+    }
+
+    public int
+    getCount(java.util.Map<String, String> __ctx, Ice.Instrumentation.InvocationObserver __observer)
+        throws IceInternal.LocalExceptionWrapper
+    {
+        IceInternal.Outgoing __og = __handler.getOutgoing("getCount", Ice.OperationMode.Normal, __ctx, __observer);
+        try
+        {
+            __og.writeEmptyParams();
+            boolean __ok = __og.invoke();
+            try
+            {
+                if(!__ok)
+                {
+                    try
+                    {
+                        __og.throwUserException();
+                    }
+                    catch(Ice.UserException __ex)
+                    {
+                        throw new Ice.UnknownUserException(__ex.ice_name(), __ex);
+                    }
+                }
+                IceInternal.BasicStream __is = __og.startReadParams();
+                int __ret;
+                __ret = __is.readInt();
+                __og.endReadParams();
+                return __ret;
+            }
+            catch(Ice.LocalException __ex)
+            {
+                throw new IceInternal.LocalExceptionWrapper(__ex, false);
+            }
+        }
+        finally
+        {
+            __handler.reclaimOutgoing(__og);
+        }
+    }
+
+    public String
+    getStreamingPort(java.util.Map<String, String> __ctx, Ice.Instrumentation.InvocationObserver __observer)
+        throws IceInternal.LocalExceptionWrapper
+    {
+        IceInternal.Outgoing __og = __handler.getOutgoing("getStreamingPort", Ice.OperationMode.Normal, __ctx, __observer);
+        try
+        {
+            __og.writeEmptyParams();
+            boolean __ok = __og.invoke();
+            try
+            {
+                if(!__ok)
+                {
+                    try
+                    {
+                        __og.throwUserException();
+                    }
+                    catch(Ice.UserException __ex)
+                    {
+                        throw new Ice.UnknownUserException(__ex.ice_name(), __ex);
+                    }
+                }
+                IceInternal.BasicStream __is = __og.startReadParams();
+                String __ret;
+                __ret = __is.readString();
                 __og.endReadParams();
                 return __ret;
             }
@@ -245,6 +421,56 @@ public final class _ServerDelM extends Ice._ObjectDelM implements _ServerDel
                 {
                     throw new IceInternal.LocalExceptionWrapper(__ex, false);
                 }
+            }
+        }
+        finally
+        {
+            __handler.reclaimOutgoing(__og);
+        }
+    }
+
+    public byte[]
+    read(String filename, int offset, int count, java.util.Map<String, String> __ctx, Ice.Instrumentation.InvocationObserver __observer)
+        throws IceInternal.LocalExceptionWrapper
+    {
+        IceInternal.Outgoing __og = __handler.getOutgoing("read", Ice.OperationMode.Normal, __ctx, __observer);
+        try
+        {
+            try
+            {
+                IceInternal.BasicStream __os = __og.startWriteParams(Ice.FormatType.DefaultFormat);
+                __os.writeString(filename);
+                __os.writeInt(offset);
+                __os.writeInt(count);
+                __og.endWriteParams();
+            }
+            catch(Ice.LocalException __ex)
+            {
+                __og.abort(__ex);
+            }
+            boolean __ok = __og.invoke();
+            try
+            {
+                if(!__ok)
+                {
+                    try
+                    {
+                        __og.throwUserException();
+                    }
+                    catch(Ice.UserException __ex)
+                    {
+                        throw new Ice.UnknownUserException(__ex.ice_name(), __ex);
+                    }
+                }
+                IceInternal.BasicStream __is = __og.startReadParams();
+                byte[] __ret;
+                __ret = ByteSeqHelper.read(__is);
+                __og.endReadParams();
+                return __ret;
+            }
+            catch(Ice.LocalException __ex)
+            {
+                throw new IceInternal.LocalExceptionWrapper(__ex, false);
             }
         }
         finally
@@ -395,7 +621,7 @@ public final class _ServerDelM extends Ice._ObjectDelM implements _ServerDel
         }
     }
 
-    public boolean
+    public void
     write(String name, int offset, byte[] data, java.util.Map<String, String> __ctx, Ice.Instrumentation.InvocationObserver __observer)
         throws IceInternal.LocalExceptionWrapper
     {
@@ -415,28 +641,27 @@ public final class _ServerDelM extends Ice._ObjectDelM implements _ServerDel
                 __og.abort(__ex);
             }
             boolean __ok = __og.invoke();
-            try
+            if(__og.hasResponse())
             {
-                if(!__ok)
+                try
                 {
-                    try
+                    if(!__ok)
                     {
-                        __og.throwUserException();
+                        try
+                        {
+                            __og.throwUserException();
+                        }
+                        catch(Ice.UserException __ex)
+                        {
+                            throw new Ice.UnknownUserException(__ex.ice_name(), __ex);
+                        }
                     }
-                    catch(Ice.UserException __ex)
-                    {
-                        throw new Ice.UnknownUserException(__ex.ice_name(), __ex);
-                    }
+                    __og.readEmptyParams();
                 }
-                IceInternal.BasicStream __is = __og.startReadParams();
-                boolean __ret;
-                __ret = __is.readBool();
-                __og.endReadParams();
-                return __ret;
-            }
-            catch(Ice.LocalException __ex)
-            {
-                throw new IceInternal.LocalExceptionWrapper(__ex, false);
+                catch(Ice.LocalException __ex)
+                {
+                    throw new IceInternal.LocalExceptionWrapper(__ex, false);
+                }
             }
         }
         finally

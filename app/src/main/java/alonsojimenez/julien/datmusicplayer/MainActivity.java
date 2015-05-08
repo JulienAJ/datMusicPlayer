@@ -1,8 +1,10 @@
 package alonsojimenez.julien.datmusicplayer;
 
 import android.content.Intent;
+import android.os.StrictMode;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -10,20 +12,28 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import Messages.Action;
+import Messages.Command;
 
 
 public class MainActivity extends ActionBarActivity
 {
     boolean recording = false;
-    IVoiceRecognizer voiceRecognizer = new SphinxVoiceRecognizer();
+    IVoiceRecognizer voiceRecognizer = new AndroidVoiceRecognizer();
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
 
+        ServerHandler.setContext(getApplicationContext());
         ServerHandler.initCommunicator();
         ServerHandler.initServer();
+
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
 
         voiceRecognizer.init(getApplicationContext());
 
@@ -37,7 +47,10 @@ public class MainActivity extends ActionBarActivity
         Intent intent = null;
 
         if(findViewById(R.id.add) == v)
+        {
             intent = new Intent(this, AddActivity.class);
+            intent.putExtra("params", false);
+        }
 
         else if(findViewById(R.id.artistSearchButton) == v)
         {
@@ -119,7 +132,36 @@ public class MainActivity extends ActionBarActivity
         {
             voiceRecognizer.stop();
             recording = false;
+            String result = voiceRecognizer.getResult();
+            Command command = CommandParserHandler.parse("ajouter un truc");
+            Log.e("WESH", command.toString());
+            Toast.makeText(getApplicationContext(), command.toString(), Toast.LENGTH_LONG);
+            if(command != null)
+                onCommand(command);
         }
+    }
+
+    private void onCommand(Command command)
+    {
+        if(command.getAction() == Action.ADD)
+        {
+            Intent intent = new Intent(this, AddActivity.class);
+            intent.putExtra("params", true);
+            intent.putExtra("title", command.getTitle());
+            intent.putExtra("artist", command.getArtist());
+            startActivity(intent);
+        }
+
+        else if(command.getAction() == Action.REMOVE)
+        {
+        }
+
+        else if(command.getAction() == Action.PLAY)
+        {
+        }
+
+        else if(command.getAction() == Action.SEARCH)
+        {}
     }
 
     private void setupSearchInputHandlers()

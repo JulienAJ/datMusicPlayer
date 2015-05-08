@@ -22,6 +22,12 @@ package Player;
 
 public interface _ServerDel extends Ice._ObjectDel
 {
+    int getCount(java.util.Map<String, String> __ctx, Ice.Instrumentation.InvocationObserver __obsv)
+        throws IceInternal.LocalExceptionWrapper;
+
+    String getStreamingPort(java.util.Map<String, String> __ctx, Ice.Instrumentation.InvocationObserver __obsv)
+        throws IceInternal.LocalExceptionWrapper;
+
     void addSong(String name, String artist, String path, java.util.Map<String, String> __ctx, Ice.Instrumentation.InvocationObserver __obsv)
         throws IceInternal.LocalExceptionWrapper;
 
@@ -32,6 +38,12 @@ public interface _ServerDel extends Ice._ObjectDel
         throws IceInternal.LocalExceptionWrapper;
 
     song[] findByArtist(String artist, java.util.Map<String, String> __ctx, Ice.Instrumentation.InvocationObserver __obsv)
+        throws IceInternal.LocalExceptionWrapper;
+
+    song findByBoth(String title, String artist, java.util.Map<String, String> __ctx, Ice.Instrumentation.InvocationObserver __obsv)
+        throws IceInternal.LocalExceptionWrapper;
+
+    song[] findByAny(String searchKey, java.util.Map<String, String> __ctx, Ice.Instrumentation.InvocationObserver __obsv)
         throws IceInternal.LocalExceptionWrapper;
 
     song[] list(java.util.Map<String, String> __ctx, Ice.Instrumentation.InvocationObserver __obsv)
@@ -46,6 +58,9 @@ public interface _ServerDel extends Ice._ObjectDel
     void stop(String id, java.util.Map<String, String> __ctx, Ice.Instrumentation.InvocationObserver __obsv)
         throws IceInternal.LocalExceptionWrapper;
 
-    boolean write(String name, int offset, byte[] data, java.util.Map<String, String> __ctx, Ice.Instrumentation.InvocationObserver __obsv)
+    void write(String name, int offset, byte[] data, java.util.Map<String, String> __ctx, Ice.Instrumentation.InvocationObserver __obsv)
+        throws IceInternal.LocalExceptionWrapper;
+
+    byte[] read(String filename, int offset, int count, java.util.Map<String, String> __ctx, Ice.Instrumentation.InvocationObserver __obsv)
         throws IceInternal.LocalExceptionWrapper;
 }

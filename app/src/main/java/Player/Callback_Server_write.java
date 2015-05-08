@@ -20,23 +20,6 @@
 
 package Player;
 
-public abstract class Callback_Server_write extends Ice.TwowayCallback
+public abstract class Callback_Server_write extends Ice.OnewayCallback
 {
-    public abstract void response(boolean __ret);
-
-    public final void __completed(Ice.AsyncResult __result)
-    {
-        ServerPrx __proxy = (ServerPrx)__result.getProxy();
-        boolean __ret = false;
-        try
-        {
-            __ret = __proxy.end_write(__result);
-        }
-        catch(Ice.LocalException __ex)
-        {
-            exception(__ex);
-            return;
-        }
-        response(__ret);
-    }
 }

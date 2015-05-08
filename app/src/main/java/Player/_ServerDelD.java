@@ -71,6 +71,58 @@ public final class _ServerDelD extends Ice._ObjectDelD implements _ServerDel
         }
     }
 
+    public song[] findByAny(final String searchKey, java.util.Map<String, String> __ctx, Ice.Instrumentation.InvocationObserver __observer)
+        throws IceInternal.LocalExceptionWrapper
+    {
+        final Ice.Current __current = new Ice.Current();
+        __initCurrent(__current, "findByAny", Ice.OperationMode.Normal, __ctx);
+        final songSeqHolder __result = new songSeqHolder();
+        IceInternal.Direct __direct = null;
+        try
+        {
+            __direct = new IceInternal.Direct(__current)
+            {
+                public Ice.DispatchStatus run(Ice.Object __obj)
+                {
+                    Server __servant = null;
+                    if(__obj == null || __obj instanceof Server)
+                    {
+                        __servant = (Server)__obj;
+                    }
+                    else
+                    {
+                        throw new Ice.OperationNotExistException(__current.id, __current.facet, __current.operation);
+                    }
+                    __result.value = __servant.findByAny(searchKey, __current);
+                    return Ice.DispatchStatus.DispatchOK;
+                }
+            };
+            try
+            {
+                Ice.DispatchStatus __status = __direct.getServant().__collocDispatch(__direct);
+                if(__status == Ice.DispatchStatus.DispatchUserException)
+                {
+                    __direct.throwUserException();
+                }
+                assert __status == Ice.DispatchStatus.DispatchOK;
+                return __result.value;
+            }
+            finally
+            {
+                __direct.destroy();
+            }
+        }
+        catch(Ice.SystemException __ex)
+        {
+            throw __ex;
+        }
+        catch(java.lang.Throwable __ex)
+        {
+            IceInternal.LocalExceptionWrapper.throwWrapper(__ex);
+        }
+        return __result.value;
+    }
+
     public song[] findByArtist(final String artist, java.util.Map<String, String> __ctx, Ice.Instrumentation.InvocationObserver __observer)
         throws IceInternal.LocalExceptionWrapper
     {
@@ -123,6 +175,58 @@ public final class _ServerDelD extends Ice._ObjectDelD implements _ServerDel
         return __result.value;
     }
 
+    public song findByBoth(final String title, final String artist, java.util.Map<String, String> __ctx, Ice.Instrumentation.InvocationObserver __observer)
+        throws IceInternal.LocalExceptionWrapper
+    {
+        final Ice.Current __current = new Ice.Current();
+        __initCurrent(__current, "findByBoth", Ice.OperationMode.Normal, __ctx);
+        final songHolder __result = new songHolder();
+        IceInternal.Direct __direct = null;
+        try
+        {
+            __direct = new IceInternal.Direct(__current)
+            {
+                public Ice.DispatchStatus run(Ice.Object __obj)
+                {
+                    Server __servant = null;
+                    if(__obj == null || __obj instanceof Server)
+                    {
+                        __servant = (Server)__obj;
+                    }
+                    else
+                    {
+                        throw new Ice.OperationNotExistException(__current.id, __current.facet, __current.operation);
+                    }
+                    __result.value = __servant.findByBoth(title, artist, __current);
+                    return Ice.DispatchStatus.DispatchOK;
+                }
+            };
+            try
+            {
+                Ice.DispatchStatus __status = __direct.getServant().__collocDispatch(__direct);
+                if(__status == Ice.DispatchStatus.DispatchUserException)
+                {
+                    __direct.throwUserException();
+                }
+                assert __status == Ice.DispatchStatus.DispatchOK;
+                return __result.value;
+            }
+            finally
+            {
+                __direct.destroy();
+            }
+        }
+        catch(Ice.SystemException __ex)
+        {
+            throw __ex;
+        }
+        catch(java.lang.Throwable __ex)
+        {
+            IceInternal.LocalExceptionWrapper.throwWrapper(__ex);
+        }
+        return __result.value;
+    }
+
     public song[] findByTitle(final String name, java.util.Map<String, String> __ctx, Ice.Instrumentation.InvocationObserver __observer)
         throws IceInternal.LocalExceptionWrapper
     {
@@ -146,6 +250,110 @@ public final class _ServerDelD extends Ice._ObjectDelD implements _ServerDel
                         throw new Ice.OperationNotExistException(__current.id, __current.facet, __current.operation);
                     }
                     __result.value = __servant.findByTitle(name, __current);
+                    return Ice.DispatchStatus.DispatchOK;
+                }
+            };
+            try
+            {
+                Ice.DispatchStatus __status = __direct.getServant().__collocDispatch(__direct);
+                if(__status == Ice.DispatchStatus.DispatchUserException)
+                {
+                    __direct.throwUserException();
+                }
+                assert __status == Ice.DispatchStatus.DispatchOK;
+                return __result.value;
+            }
+            finally
+            {
+                __direct.destroy();
+            }
+        }
+        catch(Ice.SystemException __ex)
+        {
+            throw __ex;
+        }
+        catch(java.lang.Throwable __ex)
+        {
+            IceInternal.LocalExceptionWrapper.throwWrapper(__ex);
+        }
+        return __result.value;
+    }
+
+    public int getCount(java.util.Map<String, String> __ctx, Ice.Instrumentation.InvocationObserver __observer)
+        throws IceInternal.LocalExceptionWrapper
+    {
+        final Ice.Current __current = new Ice.Current();
+        __initCurrent(__current, "getCount", Ice.OperationMode.Normal, __ctx);
+        final Ice.IntHolder __result = new Ice.IntHolder();
+        IceInternal.Direct __direct = null;
+        try
+        {
+            __direct = new IceInternal.Direct(__current)
+            {
+                public Ice.DispatchStatus run(Ice.Object __obj)
+                {
+                    Server __servant = null;
+                    if(__obj == null || __obj instanceof Server)
+                    {
+                        __servant = (Server)__obj;
+                    }
+                    else
+                    {
+                        throw new Ice.OperationNotExistException(__current.id, __current.facet, __current.operation);
+                    }
+                    __result.value = __servant.getCount(__current);
+                    return Ice.DispatchStatus.DispatchOK;
+                }
+            };
+            try
+            {
+                Ice.DispatchStatus __status = __direct.getServant().__collocDispatch(__direct);
+                if(__status == Ice.DispatchStatus.DispatchUserException)
+                {
+                    __direct.throwUserException();
+                }
+                assert __status == Ice.DispatchStatus.DispatchOK;
+                return __result.value;
+            }
+            finally
+            {
+                __direct.destroy();
+            }
+        }
+        catch(Ice.SystemException __ex)
+        {
+            throw __ex;
+        }
+        catch(java.lang.Throwable __ex)
+        {
+            IceInternal.LocalExceptionWrapper.throwWrapper(__ex);
+        }
+        return __result.value;
+    }
+
+    public String getStreamingPort(java.util.Map<String, String> __ctx, Ice.Instrumentation.InvocationObserver __observer)
+        throws IceInternal.LocalExceptionWrapper
+    {
+        final Ice.Current __current = new Ice.Current();
+        __initCurrent(__current, "getStreamingPort", Ice.OperationMode.Normal, __ctx);
+        final Ice.StringHolder __result = new Ice.StringHolder();
+        IceInternal.Direct __direct = null;
+        try
+        {
+            __direct = new IceInternal.Direct(__current)
+            {
+                public Ice.DispatchStatus run(Ice.Object __obj)
+                {
+                    Server __servant = null;
+                    if(__obj == null || __obj instanceof Server)
+                    {
+                        __servant = (Server)__obj;
+                    }
+                    else
+                    {
+                        throw new Ice.OperationNotExistException(__current.id, __current.facet, __current.operation);
+                    }
+                    __result.value = __servant.getStreamingPort(__current);
                     return Ice.DispatchStatus.DispatchOK;
                 }
             };
@@ -274,6 +482,58 @@ public final class _ServerDelD extends Ice._ObjectDelD implements _ServerDel
         {
             IceInternal.LocalExceptionWrapper.throwWrapper(__ex);
         }
+    }
+
+    public byte[] read(final String filename, final int offset, final int count, java.util.Map<String, String> __ctx, Ice.Instrumentation.InvocationObserver __observer)
+        throws IceInternal.LocalExceptionWrapper
+    {
+        final Ice.Current __current = new Ice.Current();
+        __initCurrent(__current, "read", Ice.OperationMode.Normal, __ctx);
+        final ByteSeqHolder __result = new ByteSeqHolder();
+        IceInternal.Direct __direct = null;
+        try
+        {
+            __direct = new IceInternal.Direct(__current)
+            {
+                public Ice.DispatchStatus run(Ice.Object __obj)
+                {
+                    Server __servant = null;
+                    if(__obj == null || __obj instanceof Server)
+                    {
+                        __servant = (Server)__obj;
+                    }
+                    else
+                    {
+                        throw new Ice.OperationNotExistException(__current.id, __current.facet, __current.operation);
+                    }
+                    __result.value = __servant.read(filename, offset, count, __current);
+                    return Ice.DispatchStatus.DispatchOK;
+                }
+            };
+            try
+            {
+                Ice.DispatchStatus __status = __direct.getServant().__collocDispatch(__direct);
+                if(__status == Ice.DispatchStatus.DispatchUserException)
+                {
+                    __direct.throwUserException();
+                }
+                assert __status == Ice.DispatchStatus.DispatchOK;
+                return __result.value;
+            }
+            finally
+            {
+                __direct.destroy();
+            }
+        }
+        catch(Ice.SystemException __ex)
+        {
+            throw __ex;
+        }
+        catch(java.lang.Throwable __ex)
+        {
+            IceInternal.LocalExceptionWrapper.throwWrapper(__ex);
+        }
+        return __result.value;
     }
 
     public void remove(final String path, java.util.Map<String, String> __ctx, Ice.Instrumentation.InvocationObserver __observer)
@@ -426,12 +686,11 @@ public final class _ServerDelD extends Ice._ObjectDelD implements _ServerDel
         }
     }
 
-    public boolean write(final String name, final int offset, final byte[] data, java.util.Map<String, String> __ctx, Ice.Instrumentation.InvocationObserver __observer)
+    public void write(final String name, final int offset, final byte[] data, java.util.Map<String, String> __ctx, Ice.Instrumentation.InvocationObserver __observer)
         throws IceInternal.LocalExceptionWrapper
     {
         final Ice.Current __current = new Ice.Current();
         __initCurrent(__current, "write", Ice.OperationMode.Normal, __ctx);
-        final Ice.BooleanHolder __result = new Ice.BooleanHolder();
         IceInternal.Direct __direct = null;
         try
         {
@@ -448,7 +707,7 @@ public final class _ServerDelD extends Ice._ObjectDelD implements _ServerDel
                     {
                         throw new Ice.OperationNotExistException(__current.id, __current.facet, __current.operation);
                     }
-                    __result.value = __servant.write(name, offset, data, __current);
+                    __servant.write(name, offset, data, __current);
                     return Ice.DispatchStatus.DispatchOK;
                 }
             };
@@ -460,7 +719,6 @@ public final class _ServerDelD extends Ice._ObjectDelD implements _ServerDel
                     __direct.throwUserException();
                 }
                 assert __status == Ice.DispatchStatus.DispatchOK;
-                return __result.value;
             }
             finally
             {
@@ -475,6 +733,5 @@ public final class _ServerDelD extends Ice._ObjectDelD implements _ServerDel
         {
             IceInternal.LocalExceptionWrapper.throwWrapper(__ex);
         }
-        return __result.value;
     }
 }

@@ -75,14 +75,34 @@ public abstract class _ServerDisp extends Ice.ObjectImpl implements Server
         addSong(name, artist, path, null);
     }
 
+    public final song[] findByAny(String searchKey)
+    {
+        return findByAny(searchKey, null);
+    }
+
     public final song[] findByArtist(String artist)
     {
         return findByArtist(artist, null);
     }
 
+    public final song findByBoth(String title, String artist)
+    {
+        return findByBoth(title, artist, null);
+    }
+
     public final song[] findByTitle(String name)
     {
         return findByTitle(name, null);
+    }
+
+    public final int getCount()
+    {
+        return getCount(null);
+    }
+
+    public final String getStreamingPort()
+    {
+        return getStreamingPort(null);
     }
 
     public final song[] list()
@@ -93,6 +113,11 @@ public abstract class _ServerDisp extends Ice.ObjectImpl implements Server
     public final void play(String id)
     {
         play(id, null);
+    }
+
+    public final byte[] read(String filename, int offset, int count)
+    {
+        return read(filename, offset, count, null);
     }
 
     public final void remove(String path)
@@ -110,9 +135,31 @@ public abstract class _ServerDisp extends Ice.ObjectImpl implements Server
         stop(id, null);
     }
 
-    public final boolean write(String name, int offset, byte[] data)
+    public final void write(String name, int offset, byte[] data)
     {
-        return write(name, offset, data, null);
+        write(name, offset, data, null);
+    }
+
+    public static Ice.DispatchStatus ___getCount(Server __obj, IceInternal.Incoming __inS, Ice.Current __current)
+    {
+        __checkMode(Ice.OperationMode.Normal, __current.mode);
+        __inS.readEmptyParams();
+        int __ret = __obj.getCount(__current);
+        IceInternal.BasicStream __os = __inS.__startWriteParams(Ice.FormatType.DefaultFormat);
+        __os.writeInt(__ret);
+        __inS.__endWriteParams(true);
+        return Ice.DispatchStatus.DispatchOK;
+    }
+
+    public static Ice.DispatchStatus ___getStreamingPort(Server __obj, IceInternal.Incoming __inS, Ice.Current __current)
+    {
+        __checkMode(Ice.OperationMode.Normal, __current.mode);
+        __inS.readEmptyParams();
+        String __ret = __obj.getStreamingPort(__current);
+        IceInternal.BasicStream __os = __inS.__startWriteParams(Ice.FormatType.DefaultFormat);
+        __os.writeString(__ret);
+        __inS.__endWriteParams(true);
+        return Ice.DispatchStatus.DispatchOK;
     }
 
     public static Ice.DispatchStatus ___addSong(Server __obj, IceInternal.Incoming __inS, Ice.Current __current)
@@ -165,6 +212,36 @@ public abstract class _ServerDisp extends Ice.ObjectImpl implements Server
         artist = __is.readString();
         __inS.endReadParams();
         song[] __ret = __obj.findByArtist(artist, __current);
+        IceInternal.BasicStream __os = __inS.__startWriteParams(Ice.FormatType.DefaultFormat);
+        songSeqHelper.write(__os, __ret);
+        __inS.__endWriteParams(true);
+        return Ice.DispatchStatus.DispatchOK;
+    }
+
+    public static Ice.DispatchStatus ___findByBoth(Server __obj, IceInternal.Incoming __inS, Ice.Current __current)
+    {
+        __checkMode(Ice.OperationMode.Normal, __current.mode);
+        IceInternal.BasicStream __is = __inS.startReadParams();
+        String title;
+        String artist;
+        title = __is.readString();
+        artist = __is.readString();
+        __inS.endReadParams();
+        song __ret = __obj.findByBoth(title, artist, __current);
+        IceInternal.BasicStream __os = __inS.__startWriteParams(Ice.FormatType.DefaultFormat);
+        __ret.__write(__os);
+        __inS.__endWriteParams(true);
+        return Ice.DispatchStatus.DispatchOK;
+    }
+
+    public static Ice.DispatchStatus ___findByAny(Server __obj, IceInternal.Incoming __inS, Ice.Current __current)
+    {
+        __checkMode(Ice.OperationMode.Normal, __current.mode);
+        IceInternal.BasicStream __is = __inS.startReadParams();
+        String searchKey;
+        searchKey = __is.readString();
+        __inS.endReadParams();
+        song[] __ret = __obj.findByAny(searchKey, __current);
         IceInternal.BasicStream __os = __inS.__startWriteParams(Ice.FormatType.DefaultFormat);
         songSeqHelper.write(__os, __ret);
         __inS.__endWriteParams(true);
@@ -231,9 +308,25 @@ public abstract class _ServerDisp extends Ice.ObjectImpl implements Server
         offset = __is.readInt();
         data = ByteSeqHelper.read(__is);
         __inS.endReadParams();
-        boolean __ret = __obj.write(name, offset, data, __current);
+        __obj.write(name, offset, data, __current);
+        __inS.__writeEmptyParams();
+        return Ice.DispatchStatus.DispatchOK;
+    }
+
+    public static Ice.DispatchStatus ___read(Server __obj, IceInternal.Incoming __inS, Ice.Current __current)
+    {
+        __checkMode(Ice.OperationMode.Normal, __current.mode);
+        IceInternal.BasicStream __is = __inS.startReadParams();
+        String filename;
+        int offset;
+        int count;
+        filename = __is.readString();
+        offset = __is.readInt();
+        count = __is.readInt();
+        __inS.endReadParams();
+        byte[] __ret = __obj.read(filename, offset, count, __current);
         IceInternal.BasicStream __os = __inS.__startWriteParams(Ice.FormatType.DefaultFormat);
-        __os.writeBool(__ret);
+        ByteSeqHelper.write(__os, __ret);
         __inS.__endWriteParams(true);
         return Ice.DispatchStatus.DispatchOK;
     }
@@ -241,14 +334,19 @@ public abstract class _ServerDisp extends Ice.ObjectImpl implements Server
     private final static String[] __all =
     {
         "addSong",
+        "findByAny",
         "findByArtist",
+        "findByBoth",
         "findByTitle",
+        "getCount",
+        "getStreamingPort",
         "ice_id",
         "ice_ids",
         "ice_isA",
         "ice_ping",
         "list",
         "play",
+        "read",
         "remove",
         "start",
         "stop",
@@ -271,49 +369,69 @@ public abstract class _ServerDisp extends Ice.ObjectImpl implements Server
             }
             case 1:
             {
-                return ___findByArtist(this, in, __current);
+                return ___findByAny(this, in, __current);
             }
             case 2:
             {
-                return ___findByTitle(this, in, __current);
+                return ___findByArtist(this, in, __current);
             }
             case 3:
             {
-                return ___ice_id(this, in, __current);
+                return ___findByBoth(this, in, __current);
             }
             case 4:
             {
-                return ___ice_ids(this, in, __current);
+                return ___findByTitle(this, in, __current);
             }
             case 5:
             {
-                return ___ice_isA(this, in, __current);
+                return ___getCount(this, in, __current);
             }
             case 6:
             {
-                return ___ice_ping(this, in, __current);
+                return ___getStreamingPort(this, in, __current);
             }
             case 7:
             {
-                return ___list(this, in, __current);
+                return ___ice_id(this, in, __current);
             }
             case 8:
             {
-                return ___play(this, in, __current);
+                return ___ice_ids(this, in, __current);
             }
             case 9:
             {
-                return ___remove(this, in, __current);
+                return ___ice_isA(this, in, __current);
             }
             case 10:
             {
-                return ___start(this, in, __current);
+                return ___ice_ping(this, in, __current);
             }
             case 11:
             {
-                return ___stop(this, in, __current);
+                return ___list(this, in, __current);
             }
             case 12:
+            {
+                return ___play(this, in, __current);
+            }
+            case 13:
+            {
+                return ___read(this, in, __current);
+            }
+            case 14:
+            {
+                return ___remove(this, in, __current);
+            }
+            case 15:
+            {
+                return ___start(this, in, __current);
+            }
+            case 16:
+            {
+                return ___stop(this, in, __current);
+            }
+            case 17:
             {
                 return ___write(this, in, __current);
             }

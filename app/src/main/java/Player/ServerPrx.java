@@ -22,6 +22,42 @@ package Player;
 
 public interface ServerPrx extends Ice.ObjectPrx
 {
+    public int getCount();
+
+    public int getCount(java.util.Map<String, String> __ctx);
+
+    public Ice.AsyncResult begin_getCount();
+
+    public Ice.AsyncResult begin_getCount(java.util.Map<String, String> __ctx);
+
+    public Ice.AsyncResult begin_getCount(Ice.Callback __cb);
+
+    public Ice.AsyncResult begin_getCount(java.util.Map<String, String> __ctx, Ice.Callback __cb);
+
+    public Ice.AsyncResult begin_getCount(Callback_Server_getCount __cb);
+
+    public Ice.AsyncResult begin_getCount(java.util.Map<String, String> __ctx, Callback_Server_getCount __cb);
+
+    public int end_getCount(Ice.AsyncResult __result);
+
+    public String getStreamingPort();
+
+    public String getStreamingPort(java.util.Map<String, String> __ctx);
+
+    public Ice.AsyncResult begin_getStreamingPort();
+
+    public Ice.AsyncResult begin_getStreamingPort(java.util.Map<String, String> __ctx);
+
+    public Ice.AsyncResult begin_getStreamingPort(Ice.Callback __cb);
+
+    public Ice.AsyncResult begin_getStreamingPort(java.util.Map<String, String> __ctx, Ice.Callback __cb);
+
+    public Ice.AsyncResult begin_getStreamingPort(Callback_Server_getStreamingPort __cb);
+
+    public Ice.AsyncResult begin_getStreamingPort(java.util.Map<String, String> __ctx, Callback_Server_getStreamingPort __cb);
+
+    public String end_getStreamingPort(Ice.AsyncResult __result);
+
     public void addSong(String name, String artist, String path);
 
     public void addSong(String name, String artist, String path, java.util.Map<String, String> __ctx);
@@ -93,6 +129,42 @@ public interface ServerPrx extends Ice.ObjectPrx
     public Ice.AsyncResult begin_findByArtist(String artist, java.util.Map<String, String> __ctx, Callback_Server_findByArtist __cb);
 
     public song[] end_findByArtist(Ice.AsyncResult __result);
+
+    public song findByBoth(String title, String artist);
+
+    public song findByBoth(String title, String artist, java.util.Map<String, String> __ctx);
+
+    public Ice.AsyncResult begin_findByBoth(String title, String artist);
+
+    public Ice.AsyncResult begin_findByBoth(String title, String artist, java.util.Map<String, String> __ctx);
+
+    public Ice.AsyncResult begin_findByBoth(String title, String artist, Ice.Callback __cb);
+
+    public Ice.AsyncResult begin_findByBoth(String title, String artist, java.util.Map<String, String> __ctx, Ice.Callback __cb);
+
+    public Ice.AsyncResult begin_findByBoth(String title, String artist, Callback_Server_findByBoth __cb);
+
+    public Ice.AsyncResult begin_findByBoth(String title, String artist, java.util.Map<String, String> __ctx, Callback_Server_findByBoth __cb);
+
+    public song end_findByBoth(Ice.AsyncResult __result);
+
+    public song[] findByAny(String searchKey);
+
+    public song[] findByAny(String searchKey, java.util.Map<String, String> __ctx);
+
+    public Ice.AsyncResult begin_findByAny(String searchKey);
+
+    public Ice.AsyncResult begin_findByAny(String searchKey, java.util.Map<String, String> __ctx);
+
+    public Ice.AsyncResult begin_findByAny(String searchKey, Ice.Callback __cb);
+
+    public Ice.AsyncResult begin_findByAny(String searchKey, java.util.Map<String, String> __ctx, Ice.Callback __cb);
+
+    public Ice.AsyncResult begin_findByAny(String searchKey, Callback_Server_findByAny __cb);
+
+    public Ice.AsyncResult begin_findByAny(String searchKey, java.util.Map<String, String> __ctx, Callback_Server_findByAny __cb);
+
+    public song[] end_findByAny(Ice.AsyncResult __result);
 
     public song[] list();
 
@@ -166,9 +238,9 @@ public interface ServerPrx extends Ice.ObjectPrx
 
     public void end_stop(Ice.AsyncResult __result);
 
-    public boolean write(String name, int offset, byte[] data);
+    public void write(String name, int offset, byte[] data);
 
-    public boolean write(String name, int offset, byte[] data, java.util.Map<String, String> __ctx);
+    public void write(String name, int offset, byte[] data, java.util.Map<String, String> __ctx);
 
     public Ice.AsyncResult begin_write(String name, int offset, byte[] data);
 
@@ -182,5 +254,23 @@ public interface ServerPrx extends Ice.ObjectPrx
 
     public Ice.AsyncResult begin_write(String name, int offset, byte[] data, java.util.Map<String, String> __ctx, Callback_Server_write __cb);
 
-    public boolean end_write(Ice.AsyncResult __result);
+    public void end_write(Ice.AsyncResult __result);
+
+    public byte[] read(String filename, int offset, int count);
+
+    public byte[] read(String filename, int offset, int count, java.util.Map<String, String> __ctx);
+
+    public Ice.AsyncResult begin_read(String filename, int offset, int count);
+
+    public Ice.AsyncResult begin_read(String filename, int offset, int count, java.util.Map<String, String> __ctx);
+
+    public Ice.AsyncResult begin_read(String filename, int offset, int count, Ice.Callback __cb);
+
+    public Ice.AsyncResult begin_read(String filename, int offset, int count, java.util.Map<String, String> __ctx, Ice.Callback __cb);
+
+    public Ice.AsyncResult begin_read(String filename, int offset, int count, Callback_Server_read __cb);
+
+    public Ice.AsyncResult begin_read(String filename, int offset, int count, java.util.Map<String, String> __ctx, Callback_Server_read __cb);
+
+    public byte[] end_read(Ice.AsyncResult __result);
 }

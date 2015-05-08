@@ -128,6 +128,140 @@ public final class ServerPrxHelper extends Ice.ObjectPrxHelperBase implements Se
         __end(__result, __addSong_name);
     }
 
+    private static final String __findByAny_name = "findByAny";
+
+    public song[] findByAny(String searchKey)
+    {
+        return findByAny(searchKey, null, false);
+    }
+
+    public song[] findByAny(String searchKey, java.util.Map<String, String> __ctx)
+    {
+        return findByAny(searchKey, __ctx, true);
+    }
+
+    private song[] findByAny(String searchKey, java.util.Map<String, String> __ctx, boolean __explicitCtx)
+    {
+        if(__explicitCtx && __ctx == null)
+        {
+            __ctx = _emptyContext;
+        }
+        final Ice.Instrumentation.InvocationObserver __observer = IceInternal.ObserverHelper.get(this, "findByAny", __ctx);
+        int __cnt = 0;
+        try
+        {
+            while(true)
+            {
+                Ice._ObjectDel __delBase = null;
+                try
+                {
+                    __checkTwowayOnly("findByAny");
+                    __delBase = __getDelegate(false);
+                    _ServerDel __del = (_ServerDel)__delBase;
+                    return __del.findByAny(searchKey, __ctx, __observer);
+                }
+                catch(IceInternal.LocalExceptionWrapper __ex)
+                {
+                    __handleExceptionWrapper(__delBase, __ex, __observer);
+                }
+                catch(Ice.LocalException __ex)
+                {
+                    __cnt = __handleException(__delBase, __ex, null, __cnt, __observer);
+                }
+            }
+        }
+        finally
+        {
+            if(__observer != null)
+            {
+                __observer.detach();
+            }
+        }
+    }
+
+    public Ice.AsyncResult begin_findByAny(String searchKey)
+    {
+        return begin_findByAny(searchKey, null, false, null);
+    }
+
+    public Ice.AsyncResult begin_findByAny(String searchKey, java.util.Map<String, String> __ctx)
+    {
+        return begin_findByAny(searchKey, __ctx, true, null);
+    }
+
+    public Ice.AsyncResult begin_findByAny(String searchKey, Ice.Callback __cb)
+    {
+        return begin_findByAny(searchKey, null, false, __cb);
+    }
+
+    public Ice.AsyncResult begin_findByAny(String searchKey, java.util.Map<String, String> __ctx, Ice.Callback __cb)
+    {
+        return begin_findByAny(searchKey, __ctx, true, __cb);
+    }
+
+    public Ice.AsyncResult begin_findByAny(String searchKey, Callback_Server_findByAny __cb)
+    {
+        return begin_findByAny(searchKey, null, false, __cb);
+    }
+
+    public Ice.AsyncResult begin_findByAny(String searchKey, java.util.Map<String, String> __ctx, Callback_Server_findByAny __cb)
+    {
+        return begin_findByAny(searchKey, __ctx, true, __cb);
+    }
+
+    private Ice.AsyncResult begin_findByAny(String searchKey, java.util.Map<String, String> __ctx, boolean __explicitCtx, IceInternal.CallbackBase __cb)
+    {
+        __checkAsyncTwowayOnly(__findByAny_name);
+        IceInternal.OutgoingAsync __result = new IceInternal.OutgoingAsync(this, __findByAny_name, __cb);
+        try
+        {
+            __result.__prepare(__findByAny_name, Ice.OperationMode.Normal, __ctx, __explicitCtx);
+            IceInternal.BasicStream __os = __result.__startWriteParams(Ice.FormatType.DefaultFormat);
+            __os.writeString(searchKey);
+            __result.__endWriteParams();
+            __result.__send(true);
+        }
+        catch(Ice.LocalException __ex)
+        {
+            __result.__exceptionAsync(__ex);
+        }
+        return __result;
+    }
+
+    public song[] end_findByAny(Ice.AsyncResult __result)
+    {
+        Ice.AsyncResult.__check(__result, this, __findByAny_name);
+        boolean __ok = __result.__wait();
+        try
+        {
+            if(!__ok)
+            {
+                try
+                {
+                    __result.__throwUserException();
+                }
+                catch(Ice.UserException __ex)
+                {
+                    throw new Ice.UnknownUserException(__ex.ice_name(), __ex);
+                }
+            }
+            IceInternal.BasicStream __is = __result.__startReadParams();
+            song[] __ret;
+            __ret = songSeqHelper.read(__is);
+            __result.__endReadParams();
+            return __ret;
+        }
+        catch(Ice.LocalException ex)
+        {
+            Ice.Instrumentation.InvocationObserver __obsv = __result.__getObserver();
+            if(__obsv != null)
+            {
+                __obsv.failed(ex.ice_name());
+            }
+            throw ex;
+        }
+    }
+
     private static final String __findByArtist_name = "findByArtist";
 
     public song[] findByArtist(String artist)
@@ -262,6 +396,142 @@ public final class ServerPrxHelper extends Ice.ObjectPrxHelperBase implements Se
         }
     }
 
+    private static final String __findByBoth_name = "findByBoth";
+
+    public song findByBoth(String title, String artist)
+    {
+        return findByBoth(title, artist, null, false);
+    }
+
+    public song findByBoth(String title, String artist, java.util.Map<String, String> __ctx)
+    {
+        return findByBoth(title, artist, __ctx, true);
+    }
+
+    private song findByBoth(String title, String artist, java.util.Map<String, String> __ctx, boolean __explicitCtx)
+    {
+        if(__explicitCtx && __ctx == null)
+        {
+            __ctx = _emptyContext;
+        }
+        final Ice.Instrumentation.InvocationObserver __observer = IceInternal.ObserverHelper.get(this, "findByBoth", __ctx);
+        int __cnt = 0;
+        try
+        {
+            while(true)
+            {
+                Ice._ObjectDel __delBase = null;
+                try
+                {
+                    __checkTwowayOnly("findByBoth");
+                    __delBase = __getDelegate(false);
+                    _ServerDel __del = (_ServerDel)__delBase;
+                    return __del.findByBoth(title, artist, __ctx, __observer);
+                }
+                catch(IceInternal.LocalExceptionWrapper __ex)
+                {
+                    __handleExceptionWrapper(__delBase, __ex, __observer);
+                }
+                catch(Ice.LocalException __ex)
+                {
+                    __cnt = __handleException(__delBase, __ex, null, __cnt, __observer);
+                }
+            }
+        }
+        finally
+        {
+            if(__observer != null)
+            {
+                __observer.detach();
+            }
+        }
+    }
+
+    public Ice.AsyncResult begin_findByBoth(String title, String artist)
+    {
+        return begin_findByBoth(title, artist, null, false, null);
+    }
+
+    public Ice.AsyncResult begin_findByBoth(String title, String artist, java.util.Map<String, String> __ctx)
+    {
+        return begin_findByBoth(title, artist, __ctx, true, null);
+    }
+
+    public Ice.AsyncResult begin_findByBoth(String title, String artist, Ice.Callback __cb)
+    {
+        return begin_findByBoth(title, artist, null, false, __cb);
+    }
+
+    public Ice.AsyncResult begin_findByBoth(String title, String artist, java.util.Map<String, String> __ctx, Ice.Callback __cb)
+    {
+        return begin_findByBoth(title, artist, __ctx, true, __cb);
+    }
+
+    public Ice.AsyncResult begin_findByBoth(String title, String artist, Callback_Server_findByBoth __cb)
+    {
+        return begin_findByBoth(title, artist, null, false, __cb);
+    }
+
+    public Ice.AsyncResult begin_findByBoth(String title, String artist, java.util.Map<String, String> __ctx, Callback_Server_findByBoth __cb)
+    {
+        return begin_findByBoth(title, artist, __ctx, true, __cb);
+    }
+
+    private Ice.AsyncResult begin_findByBoth(String title, String artist, java.util.Map<String, String> __ctx, boolean __explicitCtx, IceInternal.CallbackBase __cb)
+    {
+        __checkAsyncTwowayOnly(__findByBoth_name);
+        IceInternal.OutgoingAsync __result = new IceInternal.OutgoingAsync(this, __findByBoth_name, __cb);
+        try
+        {
+            __result.__prepare(__findByBoth_name, Ice.OperationMode.Normal, __ctx, __explicitCtx);
+            IceInternal.BasicStream __os = __result.__startWriteParams(Ice.FormatType.DefaultFormat);
+            __os.writeString(title);
+            __os.writeString(artist);
+            __result.__endWriteParams();
+            __result.__send(true);
+        }
+        catch(Ice.LocalException __ex)
+        {
+            __result.__exceptionAsync(__ex);
+        }
+        return __result;
+    }
+
+    public song end_findByBoth(Ice.AsyncResult __result)
+    {
+        Ice.AsyncResult.__check(__result, this, __findByBoth_name);
+        boolean __ok = __result.__wait();
+        try
+        {
+            if(!__ok)
+            {
+                try
+                {
+                    __result.__throwUserException();
+                }
+                catch(Ice.UserException __ex)
+                {
+                    throw new Ice.UnknownUserException(__ex.ice_name(), __ex);
+                }
+            }
+            IceInternal.BasicStream __is = __result.__startReadParams();
+            song __ret;
+            __ret = new song();
+            __ret.__read(__is);
+            __result.__endReadParams();
+            return __ret;
+        }
+        catch(Ice.LocalException ex)
+        {
+            Ice.Instrumentation.InvocationObserver __obsv = __result.__getObserver();
+            if(__obsv != null)
+            {
+                __obsv.failed(ex.ice_name());
+            }
+            throw ex;
+        }
+    }
+
     private static final String __findByTitle_name = "findByTitle";
 
     public song[] findByTitle(String name)
@@ -382,6 +652,270 @@ public final class ServerPrxHelper extends Ice.ObjectPrxHelperBase implements Se
             IceInternal.BasicStream __is = __result.__startReadParams();
             song[] __ret;
             __ret = songSeqHelper.read(__is);
+            __result.__endReadParams();
+            return __ret;
+        }
+        catch(Ice.LocalException ex)
+        {
+            Ice.Instrumentation.InvocationObserver __obsv = __result.__getObserver();
+            if(__obsv != null)
+            {
+                __obsv.failed(ex.ice_name());
+            }
+            throw ex;
+        }
+    }
+
+    private static final String __getCount_name = "getCount";
+
+    public int getCount()
+    {
+        return getCount(null, false);
+    }
+
+    public int getCount(java.util.Map<String, String> __ctx)
+    {
+        return getCount(__ctx, true);
+    }
+
+    private int getCount(java.util.Map<String, String> __ctx, boolean __explicitCtx)
+    {
+        if(__explicitCtx && __ctx == null)
+        {
+            __ctx = _emptyContext;
+        }
+        final Ice.Instrumentation.InvocationObserver __observer = IceInternal.ObserverHelper.get(this, "getCount", __ctx);
+        int __cnt = 0;
+        try
+        {
+            while(true)
+            {
+                Ice._ObjectDel __delBase = null;
+                try
+                {
+                    __checkTwowayOnly("getCount");
+                    __delBase = __getDelegate(false);
+                    _ServerDel __del = (_ServerDel)__delBase;
+                    return __del.getCount(__ctx, __observer);
+                }
+                catch(IceInternal.LocalExceptionWrapper __ex)
+                {
+                    __handleExceptionWrapper(__delBase, __ex, __observer);
+                }
+                catch(Ice.LocalException __ex)
+                {
+                    __cnt = __handleException(__delBase, __ex, null, __cnt, __observer);
+                }
+            }
+        }
+        finally
+        {
+            if(__observer != null)
+            {
+                __observer.detach();
+            }
+        }
+    }
+
+    public Ice.AsyncResult begin_getCount()
+    {
+        return begin_getCount(null, false, null);
+    }
+
+    public Ice.AsyncResult begin_getCount(java.util.Map<String, String> __ctx)
+    {
+        return begin_getCount(__ctx, true, null);
+    }
+
+    public Ice.AsyncResult begin_getCount(Ice.Callback __cb)
+    {
+        return begin_getCount(null, false, __cb);
+    }
+
+    public Ice.AsyncResult begin_getCount(java.util.Map<String, String> __ctx, Ice.Callback __cb)
+    {
+        return begin_getCount(__ctx, true, __cb);
+    }
+
+    public Ice.AsyncResult begin_getCount(Callback_Server_getCount __cb)
+    {
+        return begin_getCount(null, false, __cb);
+    }
+
+    public Ice.AsyncResult begin_getCount(java.util.Map<String, String> __ctx, Callback_Server_getCount __cb)
+    {
+        return begin_getCount(__ctx, true, __cb);
+    }
+
+    private Ice.AsyncResult begin_getCount(java.util.Map<String, String> __ctx, boolean __explicitCtx, IceInternal.CallbackBase __cb)
+    {
+        __checkAsyncTwowayOnly(__getCount_name);
+        IceInternal.OutgoingAsync __result = new IceInternal.OutgoingAsync(this, __getCount_name, __cb);
+        try
+        {
+            __result.__prepare(__getCount_name, Ice.OperationMode.Normal, __ctx, __explicitCtx);
+            __result.__writeEmptyParams();
+            __result.__send(true);
+        }
+        catch(Ice.LocalException __ex)
+        {
+            __result.__exceptionAsync(__ex);
+        }
+        return __result;
+    }
+
+    public int end_getCount(Ice.AsyncResult __result)
+    {
+        Ice.AsyncResult.__check(__result, this, __getCount_name);
+        boolean __ok = __result.__wait();
+        try
+        {
+            if(!__ok)
+            {
+                try
+                {
+                    __result.__throwUserException();
+                }
+                catch(Ice.UserException __ex)
+                {
+                    throw new Ice.UnknownUserException(__ex.ice_name(), __ex);
+                }
+            }
+            IceInternal.BasicStream __is = __result.__startReadParams();
+            int __ret;
+            __ret = __is.readInt();
+            __result.__endReadParams();
+            return __ret;
+        }
+        catch(Ice.LocalException ex)
+        {
+            Ice.Instrumentation.InvocationObserver __obsv = __result.__getObserver();
+            if(__obsv != null)
+            {
+                __obsv.failed(ex.ice_name());
+            }
+            throw ex;
+        }
+    }
+
+    private static final String __getStreamingPort_name = "getStreamingPort";
+
+    public String getStreamingPort()
+    {
+        return getStreamingPort(null, false);
+    }
+
+    public String getStreamingPort(java.util.Map<String, String> __ctx)
+    {
+        return getStreamingPort(__ctx, true);
+    }
+
+    private String getStreamingPort(java.util.Map<String, String> __ctx, boolean __explicitCtx)
+    {
+        if(__explicitCtx && __ctx == null)
+        {
+            __ctx = _emptyContext;
+        }
+        final Ice.Instrumentation.InvocationObserver __observer = IceInternal.ObserverHelper.get(this, "getStreamingPort", __ctx);
+        int __cnt = 0;
+        try
+        {
+            while(true)
+            {
+                Ice._ObjectDel __delBase = null;
+                try
+                {
+                    __checkTwowayOnly("getStreamingPort");
+                    __delBase = __getDelegate(false);
+                    _ServerDel __del = (_ServerDel)__delBase;
+                    return __del.getStreamingPort(__ctx, __observer);
+                }
+                catch(IceInternal.LocalExceptionWrapper __ex)
+                {
+                    __handleExceptionWrapper(__delBase, __ex, __observer);
+                }
+                catch(Ice.LocalException __ex)
+                {
+                    __cnt = __handleException(__delBase, __ex, null, __cnt, __observer);
+                }
+            }
+        }
+        finally
+        {
+            if(__observer != null)
+            {
+                __observer.detach();
+            }
+        }
+    }
+
+    public Ice.AsyncResult begin_getStreamingPort()
+    {
+        return begin_getStreamingPort(null, false, null);
+    }
+
+    public Ice.AsyncResult begin_getStreamingPort(java.util.Map<String, String> __ctx)
+    {
+        return begin_getStreamingPort(__ctx, true, null);
+    }
+
+    public Ice.AsyncResult begin_getStreamingPort(Ice.Callback __cb)
+    {
+        return begin_getStreamingPort(null, false, __cb);
+    }
+
+    public Ice.AsyncResult begin_getStreamingPort(java.util.Map<String, String> __ctx, Ice.Callback __cb)
+    {
+        return begin_getStreamingPort(__ctx, true, __cb);
+    }
+
+    public Ice.AsyncResult begin_getStreamingPort(Callback_Server_getStreamingPort __cb)
+    {
+        return begin_getStreamingPort(null, false, __cb);
+    }
+
+    public Ice.AsyncResult begin_getStreamingPort(java.util.Map<String, String> __ctx, Callback_Server_getStreamingPort __cb)
+    {
+        return begin_getStreamingPort(__ctx, true, __cb);
+    }
+
+    private Ice.AsyncResult begin_getStreamingPort(java.util.Map<String, String> __ctx, boolean __explicitCtx, IceInternal.CallbackBase __cb)
+    {
+        __checkAsyncTwowayOnly(__getStreamingPort_name);
+        IceInternal.OutgoingAsync __result = new IceInternal.OutgoingAsync(this, __getStreamingPort_name, __cb);
+        try
+        {
+            __result.__prepare(__getStreamingPort_name, Ice.OperationMode.Normal, __ctx, __explicitCtx);
+            __result.__writeEmptyParams();
+            __result.__send(true);
+        }
+        catch(Ice.LocalException __ex)
+        {
+            __result.__exceptionAsync(__ex);
+        }
+        return __result;
+    }
+
+    public String end_getStreamingPort(Ice.AsyncResult __result)
+    {
+        Ice.AsyncResult.__check(__result, this, __getStreamingPort_name);
+        boolean __ok = __result.__wait();
+        try
+        {
+            if(!__ok)
+            {
+                try
+                {
+                    __result.__throwUserException();
+                }
+                catch(Ice.UserException __ex)
+                {
+                    throw new Ice.UnknownUserException(__ex.ice_name(), __ex);
+                }
+            }
+            IceInternal.BasicStream __is = __result.__startReadParams();
+            String __ret;
+            __ret = __is.readString();
             __result.__endReadParams();
             return __ret;
         }
@@ -630,6 +1164,142 @@ public final class ServerPrxHelper extends Ice.ObjectPrxHelperBase implements Se
     public void end_play(Ice.AsyncResult __result)
     {
         __end(__result, __play_name);
+    }
+
+    private static final String __read_name = "read";
+
+    public byte[] read(String filename, int offset, int count)
+    {
+        return read(filename, offset, count, null, false);
+    }
+
+    public byte[] read(String filename, int offset, int count, java.util.Map<String, String> __ctx)
+    {
+        return read(filename, offset, count, __ctx, true);
+    }
+
+    private byte[] read(String filename, int offset, int count, java.util.Map<String, String> __ctx, boolean __explicitCtx)
+    {
+        if(__explicitCtx && __ctx == null)
+        {
+            __ctx = _emptyContext;
+        }
+        final Ice.Instrumentation.InvocationObserver __observer = IceInternal.ObserverHelper.get(this, "read", __ctx);
+        int __cnt = 0;
+        try
+        {
+            while(true)
+            {
+                Ice._ObjectDel __delBase = null;
+                try
+                {
+                    __checkTwowayOnly("read");
+                    __delBase = __getDelegate(false);
+                    _ServerDel __del = (_ServerDel)__delBase;
+                    return __del.read(filename, offset, count, __ctx, __observer);
+                }
+                catch(IceInternal.LocalExceptionWrapper __ex)
+                {
+                    __handleExceptionWrapper(__delBase, __ex, __observer);
+                }
+                catch(Ice.LocalException __ex)
+                {
+                    __cnt = __handleException(__delBase, __ex, null, __cnt, __observer);
+                }
+            }
+        }
+        finally
+        {
+            if(__observer != null)
+            {
+                __observer.detach();
+            }
+        }
+    }
+
+    public Ice.AsyncResult begin_read(String filename, int offset, int count)
+    {
+        return begin_read(filename, offset, count, null, false, null);
+    }
+
+    public Ice.AsyncResult begin_read(String filename, int offset, int count, java.util.Map<String, String> __ctx)
+    {
+        return begin_read(filename, offset, count, __ctx, true, null);
+    }
+
+    public Ice.AsyncResult begin_read(String filename, int offset, int count, Ice.Callback __cb)
+    {
+        return begin_read(filename, offset, count, null, false, __cb);
+    }
+
+    public Ice.AsyncResult begin_read(String filename, int offset, int count, java.util.Map<String, String> __ctx, Ice.Callback __cb)
+    {
+        return begin_read(filename, offset, count, __ctx, true, __cb);
+    }
+
+    public Ice.AsyncResult begin_read(String filename, int offset, int count, Callback_Server_read __cb)
+    {
+        return begin_read(filename, offset, count, null, false, __cb);
+    }
+
+    public Ice.AsyncResult begin_read(String filename, int offset, int count, java.util.Map<String, String> __ctx, Callback_Server_read __cb)
+    {
+        return begin_read(filename, offset, count, __ctx, true, __cb);
+    }
+
+    private Ice.AsyncResult begin_read(String filename, int offset, int count, java.util.Map<String, String> __ctx, boolean __explicitCtx, IceInternal.CallbackBase __cb)
+    {
+        __checkAsyncTwowayOnly(__read_name);
+        IceInternal.OutgoingAsync __result = new IceInternal.OutgoingAsync(this, __read_name, __cb);
+        try
+        {
+            __result.__prepare(__read_name, Ice.OperationMode.Normal, __ctx, __explicitCtx);
+            IceInternal.BasicStream __os = __result.__startWriteParams(Ice.FormatType.DefaultFormat);
+            __os.writeString(filename);
+            __os.writeInt(offset);
+            __os.writeInt(count);
+            __result.__endWriteParams();
+            __result.__send(true);
+        }
+        catch(Ice.LocalException __ex)
+        {
+            __result.__exceptionAsync(__ex);
+        }
+        return __result;
+    }
+
+    public byte[] end_read(Ice.AsyncResult __result)
+    {
+        Ice.AsyncResult.__check(__result, this, __read_name);
+        boolean __ok = __result.__wait();
+        try
+        {
+            if(!__ok)
+            {
+                try
+                {
+                    __result.__throwUserException();
+                }
+                catch(Ice.UserException __ex)
+                {
+                    throw new Ice.UnknownUserException(__ex.ice_name(), __ex);
+                }
+            }
+            IceInternal.BasicStream __is = __result.__startReadParams();
+            byte[] __ret;
+            __ret = ByteSeqHelper.read(__is);
+            __result.__endReadParams();
+            return __ret;
+        }
+        catch(Ice.LocalException ex)
+        {
+            Ice.Instrumentation.InvocationObserver __obsv = __result.__getObserver();
+            if(__obsv != null)
+            {
+                __obsv.failed(ex.ice_name());
+            }
+            throw ex;
+        }
     }
 
     private static final String __remove_name = "remove";
@@ -976,17 +1646,17 @@ public final class ServerPrxHelper extends Ice.ObjectPrxHelperBase implements Se
 
     private static final String __write_name = "write";
 
-    public boolean write(String name, int offset, byte[] data)
+    public void write(String name, int offset, byte[] data)
     {
-        return write(name, offset, data, null, false);
+        write(name, offset, data, null, false);
     }
 
-    public boolean write(String name, int offset, byte[] data, java.util.Map<String, String> __ctx)
+    public void write(String name, int offset, byte[] data, java.util.Map<String, String> __ctx)
     {
-        return write(name, offset, data, __ctx, true);
+        write(name, offset, data, __ctx, true);
     }
 
-    private boolean write(String name, int offset, byte[] data, java.util.Map<String, String> __ctx, boolean __explicitCtx)
+    private void write(String name, int offset, byte[] data, java.util.Map<String, String> __ctx, boolean __explicitCtx)
     {
         if(__explicitCtx && __ctx == null)
         {
@@ -1001,10 +1671,10 @@ public final class ServerPrxHelper extends Ice.ObjectPrxHelperBase implements Se
                 Ice._ObjectDel __delBase = null;
                 try
                 {
-                    __checkTwowayOnly("write");
                     __delBase = __getDelegate(false);
                     _ServerDel __del = (_ServerDel)__delBase;
-                    return __del.write(name, offset, data, __ctx, __observer);
+                    __del.write(name, offset, data, __ctx, __observer);
+                    return;
                 }
                 catch(IceInternal.LocalExceptionWrapper __ex)
                 {
@@ -1057,7 +1727,6 @@ public final class ServerPrxHelper extends Ice.ObjectPrxHelperBase implements Se
 
     private Ice.AsyncResult begin_write(String name, int offset, byte[] data, java.util.Map<String, String> __ctx, boolean __explicitCtx, IceInternal.CallbackBase __cb)
     {
-        __checkAsyncTwowayOnly(__write_name);
         IceInternal.OutgoingAsync __result = new IceInternal.OutgoingAsync(this, __write_name, __cb);
         try
         {
@@ -1076,38 +1745,9 @@ public final class ServerPrxHelper extends Ice.ObjectPrxHelperBase implements Se
         return __result;
     }
 
-    public boolean end_write(Ice.AsyncResult __result)
+    public void end_write(Ice.AsyncResult __result)
     {
-        Ice.AsyncResult.__check(__result, this, __write_name);
-        boolean __ok = __result.__wait();
-        try
-        {
-            if(!__ok)
-            {
-                try
-                {
-                    __result.__throwUserException();
-                }
-                catch(Ice.UserException __ex)
-                {
-                    throw new Ice.UnknownUserException(__ex.ice_name(), __ex);
-                }
-            }
-            IceInternal.BasicStream __is = __result.__startReadParams();
-            boolean __ret;
-            __ret = __is.readBool();
-            __result.__endReadParams();
-            return __ret;
-        }
-        catch(Ice.LocalException ex)
-        {
-            Ice.Instrumentation.InvocationObserver __obsv = __result.__getObserver();
-            if(__obsv != null)
-            {
-                __obsv.failed(ex.ice_name());
-            }
-            throw ex;
-        }
+        __end(__result, __write_name);
     }
 
     public static ServerPrx checkedCast(Ice.ObjectPrx __obj)

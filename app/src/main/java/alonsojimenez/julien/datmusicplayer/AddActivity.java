@@ -7,6 +7,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.graphics.RectF;
+import android.media.MediaMetadataRetriever;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.provider.MediaStore;
@@ -30,6 +31,10 @@ import Ice.IllegalMessageSizeException;
 
 public class AddActivity extends ActionBarActivity
 {
+    private boolean params = false;
+    private String title = null;
+    private String artist = null;
+
     private static final int PICK_COVER_REQUEST = 0;
     private static final int PICK_SONG_REQUEST = 1;
     private Uri coverUri = null;
@@ -41,6 +46,19 @@ public class AddActivity extends ActionBarActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add);
+
+        params = getIntent().getExtras().getBoolean("params");
+
+        if(params)
+        {
+            title = getIntent().getExtras().getString("title");
+            artist = getIntent().getExtras().getString("artist");
+
+            if(title != null)
+                ((EditText)findViewById(R.id.nameAdd)).setText(title);
+            if(artist != null)
+                ((EditText)findViewById(R.id.artistAdd)).setText(artist);
+        }
     }
 
     public void onValidate(View v)
@@ -137,6 +155,16 @@ public class AddActivity extends ActionBarActivity
             {
                 this.songUri = data.getData();
                 ((EditText)findViewById(R.id.pathAdd)).setText(songUri.toString());
+                if(!params)
+                {
+                    MediaMetadataRetriever mediaMetadataRetriever = new MediaMetadataRetriever();
+                    mediaMetadataRetriever.setDataSource(this, songUri);
+                    title = mediaMetadataRetriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_TITLE);
+                    artist = mediaMetadataRetriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_ARTIST);
+
+                    ((EditText)findViewById(R.id.nameAdd)).setText(title);
+                    ((EditText)findViewById(R.id.artistAdd)).setText(artist);
+                }
             }
         }
     }
@@ -172,7 +200,7 @@ public class AddActivity extends ActionBarActivity
             artist = temp.getText().toString();
 
             upName = (artist + "_" + name).replaceAll(" ", "_");
-            path = "songs/" + upName + ".mp3";
+            path = upName + ".mp3";
 
             progressDialog = new ProgressDialog(AddActivity.this);
             progressDialog.setMessage("Uploading...");
