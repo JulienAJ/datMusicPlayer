@@ -3,9 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Messages;
-
-import android.util.Log;
+package alonsojimenez.julien.datmusicplayer.commandParser;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -20,16 +18,9 @@ public class Command
     private String artist;
     private String title;
 
-    public Command(Action action, String artist, String title)
-    {
-        this.action = action;
-        this.artist = artist;
-        this.title = title;
-    }
-
     public Command(String soapResponse)
     {
-        String regex = "^anyType\\{action=(ADD|REMOVE|SEARCH|PLAY); ((artist=)(.+); )?((title=)(.+); )?\\}$";
+        String regex = "^anyType\\{action=(ADD|REMOVE|SEARCH|PLAY); ((artist=)([^;]+); )?((title=)(.+); )?\\}$";
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(soapResponse);
         if(matcher.find())
@@ -60,29 +51,6 @@ public class Command
         return null;
     }
 
-    public static String StringFromAction(Action action)
-    {
-        if(action == Action.ADD)
-            return "ADD";
-
-        if(action == Action.REMOVE)
-            return "REMOVE";
-
-        if(action == Action.PLAY)
-            return "PLAY";
-
-        if(action == Action.SEARCH)
-            return "SEARCH";
-
-        return null;
-    }
-
-    public void setAction(Action action) { this.action = action; }
-
-    public void setArtist(String artist) { this.artist = artist; }
-
-    public void setTitle(String title) { this.title = title; }
-
     public Action getAction() { return action; }
 
     public String getArtist() { return artist; }
@@ -92,10 +60,7 @@ public class Command
     @Override
     public String toString()
     {
-        return "Command{" +
-                "action=" + action +
-                ", artist='" + artist + '\'' +
-                ", title='" + title + '\'' +
-                '}';
+        return "Command{" + "action=" + action + ", artist='" + artist + '\''
+                + ", title='" + title + '\'' + '}';
     }
 }

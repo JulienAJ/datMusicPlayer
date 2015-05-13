@@ -1,4 +1,4 @@
-package alonsojimenez.julien.datmusicplayer;
+package alonsojimenez.julien.datmusicplayer.voiceRecognition;
 
 import android.content.Context;
 import android.content.Intent;
@@ -19,7 +19,9 @@ public class AndroidVoiceRecognizer implements IVoiceRecognizer
     SpeechRecognizer speechRecognizer;
     Context context;
     String result;
+    IRecognitionResultListener resultListener;
     boolean done;
+
 
     @Override
     public void init(Context context)
@@ -45,9 +47,9 @@ public class AndroidVoiceRecognizer implements IVoiceRecognizer
     }
 
     @Override
-    public String getResult()
+    public void setRecognitionResultListener(IRecognitionResultListener listener)
     {
-       return result;
+        this.resultListener = listener;
     }
 
     private class recognitionListener implements RecognitionListener
@@ -122,8 +124,7 @@ public class AndroidVoiceRecognizer implements IVoiceRecognizer
             }
             Log.e("Speech Reco Output", data.get(0).toString());
             result = data.get(0).toString();
-            done = true;
-            //Toast.makeText(context, s, Toast.LENGTH_LONG).show();
+            resultListener.onRecognitionResult(result);
         }
 
         @Override

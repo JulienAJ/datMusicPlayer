@@ -22,21 +22,75 @@ package Player;
 
 public interface MonitorPrx extends Ice.ObjectPrx
 {
-    public void report(String action, song s);
+    public void songRemoved(song s);
 
-    public void report(String action, song s, java.util.Map<String, String> __ctx);
+    public void songRemoved(song s, java.util.Map<String, String> __ctx);
 
-    public Ice.AsyncResult begin_report(String action, song s);
+    public Ice.AsyncResult begin_songRemoved(song s);
 
-    public Ice.AsyncResult begin_report(String action, song s, java.util.Map<String, String> __ctx);
+    public Ice.AsyncResult begin_songRemoved(song s, java.util.Map<String, String> __ctx);
 
-    public Ice.AsyncResult begin_report(String action, song s, Ice.Callback __cb);
+    public Ice.AsyncResult begin_songRemoved(song s, Ice.Callback __cb);
 
-    public Ice.AsyncResult begin_report(String action, song s, java.util.Map<String, String> __ctx, Ice.Callback __cb);
+    public Ice.AsyncResult begin_songRemoved(song s, java.util.Map<String, String> __ctx, Ice.Callback __cb);
 
-    public Ice.AsyncResult begin_report(String action, song s, Callback_Monitor_report __cb);
+    public Ice.AsyncResult begin_songRemoved(song s, Callback_Monitor_songRemoved __cb);
 
-    public Ice.AsyncResult begin_report(String action, song s, java.util.Map<String, String> __ctx, Callback_Monitor_report __cb);
+    public Ice.AsyncResult begin_songRemoved(song s, java.util.Map<String, String> __ctx, Callback_Monitor_songRemoved __cb);
 
-    public void end_report(Ice.AsyncResult __result);
+    public void end_songRemoved(Ice.AsyncResult __result);
+
+    public void newSong(song s);
+
+    public void newSong(song s, java.util.Map<String, String> __ctx);
+
+    public Ice.AsyncResult begin_newSong(song s);
+
+    public Ice.AsyncResult begin_newSong(song s, java.util.Map<String, String> __ctx);
+
+    public Ice.AsyncResult begin_newSong(song s, Ice.Callback __cb);
+
+    public Ice.AsyncResult begin_newSong(song s, java.util.Map<String, String> __ctx, Ice.Callback __cb);
+
+    public Ice.AsyncResult begin_newSong(song s, Callback_Monitor_newSong __cb);
+
+    public Ice.AsyncResult begin_newSong(song s, java.util.Map<String, String> __ctx, Callback_Monitor_newSong __cb);
+
+    public void end_newSong(Ice.AsyncResult __result);
+
+    public void serverUp();
+
+    public void serverUp(java.util.Map<String, String> __ctx);
+
+    public Ice.AsyncResult begin_serverUp();
+
+    public Ice.AsyncResult begin_serverUp(java.util.Map<String, String> __ctx);
+
+    public Ice.AsyncResult begin_serverUp(Ice.Callback __cb);
+
+    public Ice.AsyncResult begin_serverUp(java.util.Map<String, String> __ctx, Ice.Callback __cb);
+
+    public Ice.AsyncResult begin_serverUp(Callback_Monitor_serverUp __cb);
+
+    public Ice.AsyncResult begin_serverUp(java.util.Map<String, String> __ctx, Callback_Monitor_serverUp __cb);
+
+    public void end_serverUp(Ice.AsyncResult __result);
+
+    public void serverDown();
+
+    public void serverDown(java.util.Map<String, String> __ctx);
+
+    public Ice.AsyncResult begin_serverDown();
+
+    public Ice.AsyncResult begin_serverDown(java.util.Map<String, String> __ctx);
+
+    public Ice.AsyncResult begin_serverDown(Ice.Callback __cb);
+
+    public Ice.AsyncResult begin_serverDown(java.util.Map<String, String> __ctx, Ice.Callback __cb);
+
+    public Ice.AsyncResult begin_serverDown(Callback_Monitor_serverDown __cb);
+
+    public Ice.AsyncResult begin_serverDown(java.util.Map<String, String> __ctx, Callback_Monitor_serverDown __cb);
+
+    public void end_serverDown(Ice.AsyncResult __result);
 }

@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.StrictMode;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -12,14 +11,23 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import Messages.Action;
-import Messages.Command;
+import alonsojimenez.julien.datmusicplayer.commandParser.Action;
+import alonsojimenez.julien.datmusicplayer.commandParser.Command;
+import alonsojimenez.julien.datmusicplayer.commandParser.CommandParserHandler;
+import alonsojimenez.julien.datmusicplayer.musicServer.ServerHandler;
+import alonsojimenez.julien.datmusicplayer.voiceRecognition.AndroidVoiceRecognizer;
+import alonsojimenez.julien.datmusicplayer.voiceRecognition.IRecognitionResultListener;
+import alonsojimenez.julien.datmusicplayer.voiceRecognition.IVoiceRecognizer;
+import alonsojimenez.julien.datmusicplayer.voiceRecognition.SphinxVoiceRecognizer;
 
 
 public class MainActivity extends ActionBarActivity
 {
+    private static String defaultServerHostName = "datdroplet.ovh";
+    private static String defaultServerPort = "10000";
+    private static String defaultServerStreamingPort = "8090";
+
     boolean recording = false;
     IVoiceRecognizer voiceRecognizer = new AndroidVoiceRecognizer();
 
@@ -28,14 +36,24 @@ public class MainActivity extends ActionBarActivity
     {
         super.onCreate(savedInstanceState);
 
-        ServerHandler.setContext(getApplicationContext());
-        ServerHandler.initCommunicator();
-        ServerHandler.initServer();
+        ServerHandler.initMonitor(getApplicationContext());
+        ServerHandler.addServer("188.226.154.9", "15000", defaultServerStreamingPort);
+        ServerHandler.addServer(defaultServerHostName, defaultServerPort, defaultServerStreamingPort);
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
         voiceRecognizer.init(getApplicationContext());
+        voiceRecognizer.setRecognitionResultListener(new IRecognitionResultListener()
+        {
+            @Override
+            public void onRecognitionResult(String result)
+            {
+                Command command = CommandParserHandler.parse(result);
+                if(command != null)
+                    onCommand(command);
+            }
+        });
 
         setContentView(R.layout.activity_main);
 
@@ -60,8 +78,7 @@ public class MainActivity extends ActionBarActivity
             {
                 intent = new Intent(this, SearchResultsActivity.class);
                 intent.putExtra("searchKey", key);
-                intent.putExtra("isArtist", true);
-                intent.putExtra("isList", false);
+                intent.putExtra("searchType", SearchType.ARTIST);
             }
         }
 
@@ -73,15 +90,14 @@ public class MainActivity extends ActionBarActivity
             {
                 intent = new Intent(this, SearchResultsActivity.class);
                 intent.putExtra("searchKey", key);
-                intent.putExtra("isArtist", false);
-                intent.putExtra("isList", false);
+                intent.putExtra("searchType", SearchType.TITLE);
             }
         }
 
         else if(findViewById(R.id.listButton) == v)
         {
             intent = new Intent(this, SearchResultsActivity.class);
-            intent.putExtra("isList", true);
+            intent.putExtra("searchType", SearchType.LIST);
         }
 
         if(intent != null)
@@ -92,7 +108,7 @@ public class MainActivity extends ActionBarActivity
     public void onDestroy()
     {
         super.onDestroy();
-        ServerHandler.destroy();
+        //ServerHandler.destroy();
     }
 
     @Override
@@ -132,17 +148,12 @@ public class MainActivity extends ActionBarActivity
         {
             voiceRecognizer.stop();
             recording = false;
-            String result = voiceRecognizer.getResult();
-            Command command = CommandParserHandler.parse("ajouter un truc");
-            Log.e("WESH", command.toString());
-            Toast.makeText(getApplicationContext(), command.toString(), Toast.LENGTH_LONG);
-            if(command != null)
-                onCommand(command);
         }
     }
 
     private void onCommand(Command command)
     {
+        // TODO do more stuff when user talks
         if(command.getAction() == Action.ADD)
         {
             Intent intent = new Intent(this, AddActivity.class);
@@ -152,12 +163,28 @@ public class MainActivity extends ActionBarActivity
             startActivity(intent);
         }
 
-        else if(command.getAction() == Action.REMOVE)
+        else if(command.getAction() == Action.REMOVE || command.getAction() == Action.PLAY)
         {
-        }
+            if(command.getTitle() == null)
+                return;
 
-        else if(command.getAction() == Action.PLAY)
-        {
+            Intent intent = new Intent(this, SearchResultsActivity.class);
+
+            if(command.getArtist() == null)
+            {
+                intent.putExtra("searchType", SearchType.ANY);
+                intent.putExtra("searchKey", command.getTitle());
+            }
+
+            else
+            {
+                intent.putExtra("searchType", SearchType.BOTH);
+                intent.putExtra("title", command.getTitle());
+                intent.putExtra("artist", command.getArtist());
+                if(command.getAction() == Action.REMOVE)
+                    intent.putExtra("isRemove", true);
+            }
+            startActivity(intent);
         }
 
         else if(command.getAction() == Action.SEARCH)

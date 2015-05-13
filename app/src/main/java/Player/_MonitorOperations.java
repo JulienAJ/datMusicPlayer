@@ -22,5 +22,11 @@ package Player;
 
 public interface _MonitorOperations
 {
-    void report(String action, song s, Ice.Current __current);
+    void songRemoved(song s, Ice.Current __current);
+
+    void newSong(song s, Ice.Current __current);
+
+    void serverUp(Ice.Current __current);
+
+    void serverDown(Ice.Current __current);
 }

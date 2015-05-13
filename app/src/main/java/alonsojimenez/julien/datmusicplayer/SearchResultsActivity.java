@@ -4,8 +4,6 @@ import android.content.Intent;
 import android.os.Parcelable;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -17,6 +15,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import Player.song;
+import alonsojimenez.julien.datmusicplayer.musicServer.ServerHandler;
 
 
 public class SearchResultsActivity extends ActionBarActivity
@@ -35,22 +34,48 @@ public class SearchResultsActivity extends ActionBarActivity
         super.onResume();
         song[] results = null;
 
-        if(getIntent().getExtras().getBoolean("isList"))
+        SearchType searchType = (SearchType)getIntent().getExtras().get("searchType");
+        boolean isRemove = getIntent().getExtras().getBoolean("isRemove", false);
+
+        if(searchType == SearchType.LIST)
         {
-            results = ServerHandler.getServer().list();
+            results = ServerHandler.list();
             ((TextView)findViewById(R.id.listHeader)).setText(R.string.registeredSongs);
         }
 
-        else
+        else if(searchType == SearchType.ARTIST)
         {
             String searchKey = getIntent().getExtras().getString("searchKey");
-
-            if (getIntent().getExtras().getBoolean("isArtist"))
-                results = ServerHandler.getServer().findByArtist(searchKey);
-            else if (!(getIntent().getExtras().getBoolean("isArtist")))
-                results = ServerHandler.getServer().findByTitle(searchKey);
-
+            results = ServerHandler.findByArtist(searchKey);
         }
+        else if(searchType == SearchType.TITLE)
+        {
+            String searchKey = getIntent().getExtras().getString("searchKey");
+            results = ServerHandler.findByTitle(searchKey);
+        }
+        else if(searchType == SearchType.ANY)
+        {
+            String searchKey = getIntent().getExtras().getString("searchKey");
+            results = ServerHandler.findByAny(searchKey);
+        }
+        else if(searchType == SearchType.BOTH)
+        {
+            String title = getIntent().getExtras().getString("title");
+            String artist = getIntent().getExtras().getString("artist");
+            song result = ServerHandler.findByBoth(title, artist);
+
+            if(result != null)
+            {
+                Intent intent = new Intent(SearchResultsActivity.this, SongActivity.class);
+                intent.putExtra("SONG", (Parcelable)(new ParcelableSong(result)));
+                intent.putExtra("isRemove", isRemove);
+                // TODO say for what (removal, playing)
+                startActivity(intent);
+            }
+        }
+        else
+            finish();
+
         if(results.length == 0)
         {
             ((TextView)findViewById(R.id.listHeader)).setText(R.string.noResults);

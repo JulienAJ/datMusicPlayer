@@ -24,16 +24,16 @@ public class SettingsActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
-        oldHost = ServerHandler.getHostname();
+        /*oldHost = ServerHandler.getHostname();
         oldPort = ServerHandler.getPort();
         ((EditText) findViewById(R.id.hostnameField)).setText(oldHost);
         ((EditText) findViewById(R.id.portField)).setText(oldPort);
         ((TextView) findViewById(R.id.statusLabel)).setTextColor(Color.GREEN);
-        ((Button) (findViewById(R.id.validateSettings))).setEnabled(false);
+        ((Button) (findViewById(R.id.validateSettings))).setEnabled(false);*/
     }
 
     public void onPing(View v) {
-        String newHost = ((EditText) (findViewById(R.id.hostnameField))).getText().toString();
+        /*String newHost = ((EditText) (findViewById(R.id.hostnameField))).getText().toString();
         String newPort = ((EditText) (findViewById(R.id.portField))).getText().toString();
 
         if (oldHost.equals(newHost) && oldPort.equals(newPort))
@@ -43,7 +43,7 @@ public class SettingsActivity extends ActionBarActivity {
         ServerHandler.setPort(newPort);
 
         try {
-            ServerHandler.destroyServer();
+            //ServerHandler.destroyServer();
             ServerHandler.initServer();
             if (ServerHandler.getServer() != null) {
                 ServerHandler.getServer().ice_ping();
@@ -57,15 +57,15 @@ public class SettingsActivity extends ActionBarActivity {
             ((TextView) (findViewById(R.id.statusLabel))).setTextColor(Color.RED);
             ((Button) (findViewById(R.id.validateSettings))).setEnabled(false);
             System.err.println(e.getMessage());
-        }
+        }*/
     }
 
     public void onCancel(View v) {
-        ServerHandler.setHostname(oldHost);
+        /*ServerHandler.setHostname(oldHost);
         ServerHandler.setPort(oldPort);
 
         try {
-            ServerHandler.destroyServer();
+            //ServerHandler.destroyServer();
             ServerHandler.initServer();
             if (ServerHandler.getServer() != null) {
                 ServerHandler.getServer().ice_ping();
@@ -79,7 +79,7 @@ public class SettingsActivity extends ActionBarActivity {
             ((TextView) (findViewById(R.id.statusLabel))).setTextColor(Color.RED);
             ((Button) (findViewById(R.id.validateSettings))).setEnabled(false);
             System.err.println(e.getMessage());
-        }
+        }*/
 
     }
 

@@ -70,22 +70,66 @@ public abstract class _MonitorDisp extends Ice.ObjectImpl implements Monitor
         return __ids[1];
     }
 
-    public final void report(String action, song s)
+    public final void newSong(song s)
     {
-        report(action, s, null);
+        newSong(s, null);
     }
 
-    public static Ice.DispatchStatus ___report(Monitor __obj, IceInternal.Incoming __inS, Ice.Current __current)
+    public final void serverDown()
+    {
+        serverDown(null);
+    }
+
+    public final void serverUp()
+    {
+        serverUp(null);
+    }
+
+    public final void songRemoved(song s)
+    {
+        songRemoved(s, null);
+    }
+
+    public static Ice.DispatchStatus ___songRemoved(Monitor __obj, IceInternal.Incoming __inS, Ice.Current __current)
     {
         __checkMode(Ice.OperationMode.Normal, __current.mode);
         IceInternal.BasicStream __is = __inS.startReadParams();
-        String action;
         song s;
-        action = __is.readString();
         s = new song();
         s.__read(__is);
         __inS.endReadParams();
-        __obj.report(action, s, __current);
+        __obj.songRemoved(s, __current);
+        __inS.__writeEmptyParams();
+        return Ice.DispatchStatus.DispatchOK;
+    }
+
+    public static Ice.DispatchStatus ___newSong(Monitor __obj, IceInternal.Incoming __inS, Ice.Current __current)
+    {
+        __checkMode(Ice.OperationMode.Normal, __current.mode);
+        IceInternal.BasicStream __is = __inS.startReadParams();
+        song s;
+        s = new song();
+        s.__read(__is);
+        __inS.endReadParams();
+        __obj.newSong(s, __current);
+        __inS.__writeEmptyParams();
+        return Ice.DispatchStatus.DispatchOK;
+    }
+
+    public static Ice.DispatchStatus ___serverUp(Monitor __obj, IceInternal.Incoming __inS, Ice.Current __current)
+    {
+        __checkMode(Ice.OperationMode.Normal, __current.mode);
+        __inS.readEmptyParams();
+        __obj.serverUp(__current);
+        __inS.__writeEmptyParams();
+        return Ice.DispatchStatus.DispatchOK;
+    }
+
+    public static Ice.DispatchStatus ___serverDown(Monitor __obj, IceInternal.Incoming __inS, Ice.Current __current)
+    {
+        __checkMode(Ice.OperationMode.Normal, __current.mode);
+        __inS.readEmptyParams();
+        __obj.serverDown(__current);
         __inS.__writeEmptyParams();
         return Ice.DispatchStatus.DispatchOK;
     }
@@ -96,7 +140,10 @@ public abstract class _MonitorDisp extends Ice.ObjectImpl implements Monitor
         "ice_ids",
         "ice_isA",
         "ice_ping",
-        "report"
+        "newSong",
+        "serverDown",
+        "serverUp",
+        "songRemoved"
     };
 
     public Ice.DispatchStatus __dispatch(IceInternal.Incoming in, Ice.Current __current)
@@ -127,7 +174,19 @@ public abstract class _MonitorDisp extends Ice.ObjectImpl implements Monitor
             }
             case 4:
             {
-                return ___report(this, in, __current);
+                return ___newSong(this, in, __current);
+            }
+            case 5:
+            {
+                return ___serverDown(this, in, __current);
+            }
+            case 6:
+            {
+                return ___serverUp(this, in, __current);
+            }
+            case 7:
+            {
+                return ___songRemoved(this, in, __current);
             }
         }
 

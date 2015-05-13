@@ -22,6 +22,15 @@ package Player;
 
 public interface _MonitorDel extends Ice._ObjectDel
 {
-    void report(String action, song s, java.util.Map<String, String> __ctx, Ice.Instrumentation.InvocationObserver __obsv)
+    void songRemoved(song s, java.util.Map<String, String> __ctx, Ice.Instrumentation.InvocationObserver __obsv)
+        throws IceInternal.LocalExceptionWrapper;
+
+    void newSong(song s, java.util.Map<String, String> __ctx, Ice.Instrumentation.InvocationObserver __obsv)
+        throws IceInternal.LocalExceptionWrapper;
+
+    void serverUp(java.util.Map<String, String> __ctx, Ice.Instrumentation.InvocationObserver __obsv)
+        throws IceInternal.LocalExceptionWrapper;
+
+    void serverDown(java.util.Map<String, String> __ctx, Ice.Instrumentation.InvocationObserver __obsv)
         throws IceInternal.LocalExceptionWrapper;
 }

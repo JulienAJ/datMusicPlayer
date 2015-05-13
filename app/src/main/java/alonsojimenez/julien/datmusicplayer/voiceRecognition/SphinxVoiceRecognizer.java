@@ -1,4 +1,4 @@
-package alonsojimenez.julien.datmusicplayer;
+package alonsojimenez.julien.datmusicplayer.voiceRecognition;
 
 import android.content.Context;
 import android.media.AudioFormat;
@@ -13,6 +13,7 @@ import PocketSphinxIce.IPocketSphinxServerPrxHelper;
 /**
  * Created by julien on 30/04/15.
  */
+// TODO correct issues with pocketSphinx wrapper
 public class SphinxVoiceRecognizer implements IVoiceRecognizer
 {
     private static final int REC_SR = 16000;
@@ -23,18 +24,19 @@ public class SphinxVoiceRecognizer implements IVoiceRecognizer
 
     private AudioRecord audioRecord = null;
 
+    private Communicator communicator = null;
     private IPocketSphinxServerPrx server;
 
     private int bufferSize;
     private short[] recordData;
     private int position;
 
-    String result = null;
-    boolean done = false;
+    IRecognitionResultListener resultListener;
 
     @Override
     public void init(Context context)
     {
+        initCommunicator();
         initServer();
 
         bufferSize = AudioRecord.getMinBufferSize(REC_SR, REC_CHAN, REC_ENC);
@@ -48,7 +50,6 @@ public class SphinxVoiceRecognizer implements IVoiceRecognizer
     public void start()
     {
         position = 0;
-        done = false;
         audioRecord.startRecording();
         new Thread(new Runnable()
         {
@@ -72,10 +73,11 @@ public class SphinxVoiceRecognizer implements IVoiceRecognizer
             public void run()
             {
 
+                String result = null;
                 try
                 {
                     result = server.decode(recordData);
-                    done = true;
+                    resultListener.onRecognitionResult(result);
                 }
                 catch(PocketSphinxIce.Error e)
                 {
@@ -91,21 +93,26 @@ public class SphinxVoiceRecognizer implements IVoiceRecognizer
     }
 
     @Override
-    public String getResult()
+    public void setRecognitionResultListener(IRecognitionResultListener listener)
     {
-        while(true)
+        this.resultListener = listener;
+    }
+
+    private void initCommunicator()
+    {
+        if(communicator == null)
         {
-            if(done)
-                return result;
+            communicator = Ice.Util.initialize();
         }
     }
 
-    public void initServer()
+    private void initServer()
     {
+        if(communicator == null)
+            return;
         try
         {
-            Communicator ic = ServerHandler.getCommunicator();
-            Ice.ObjectPrx base = ic.stringToProxy("PocketSphinxServer:default -h " + hostname +
+            Ice.ObjectPrx base = communicator.stringToProxy("PocketSphinxServer:default -h " + hostname +
                     " -p " + port);
             server = IPocketSphinxServerPrxHelper.checkedCast(base);
         }

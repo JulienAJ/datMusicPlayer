@@ -39,4 +39,6 @@
     <string name="noTitle">Please choose a title</string>
     <string name="noArtist">Please choose an artist</string>
     <string name="addSuccess">was successfully added</string>
+    <string name="confirmRemoveTitle">Confirmation</string>
+    <string name="confirmRemoveText">Are you sure you want to remove</string>
 </resources>

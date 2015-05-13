@@ -22,25 +22,25 @@ package Player;
 
 public final class MonitorPrxHelper extends Ice.ObjectPrxHelperBase implements MonitorPrx
 {
-    private static final String __report_name = "report";
+    private static final String __newSong_name = "newSong";
 
-    public void report(String action, song s)
+    public void newSong(song s)
     {
-        report(action, s, null, false);
+        newSong(s, null, false);
     }
 
-    public void report(String action, song s, java.util.Map<String, String> __ctx)
+    public void newSong(song s, java.util.Map<String, String> __ctx)
     {
-        report(action, s, __ctx, true);
+        newSong(s, __ctx, true);
     }
 
-    private void report(String action, song s, java.util.Map<String, String> __ctx, boolean __explicitCtx)
+    private void newSong(song s, java.util.Map<String, String> __ctx, boolean __explicitCtx)
     {
         if(__explicitCtx && __ctx == null)
         {
             __ctx = _emptyContext;
         }
-        final Ice.Instrumentation.InvocationObserver __observer = IceInternal.ObserverHelper.get(this, "report", __ctx);
+        final Ice.Instrumentation.InvocationObserver __observer = IceInternal.ObserverHelper.get(this, "newSong", __ctx);
         int __cnt = 0;
         try
         {
@@ -51,7 +51,7 @@ public final class MonitorPrxHelper extends Ice.ObjectPrxHelperBase implements M
                 {
                     __delBase = __getDelegate(false);
                     _MonitorDel __del = (_MonitorDel)__delBase;
-                    __del.report(action, s, __ctx, __observer);
+                    __del.newSong(s, __ctx, __observer);
                     return;
                 }
                 catch(IceInternal.LocalExceptionWrapper __ex)
@@ -73,44 +73,43 @@ public final class MonitorPrxHelper extends Ice.ObjectPrxHelperBase implements M
         }
     }
 
-    public Ice.AsyncResult begin_report(String action, song s)
+    public Ice.AsyncResult begin_newSong(song s)
     {
-        return begin_report(action, s, null, false, null);
+        return begin_newSong(s, null, false, null);
     }
 
-    public Ice.AsyncResult begin_report(String action, song s, java.util.Map<String, String> __ctx)
+    public Ice.AsyncResult begin_newSong(song s, java.util.Map<String, String> __ctx)
     {
-        return begin_report(action, s, __ctx, true, null);
+        return begin_newSong(s, __ctx, true, null);
     }
 
-    public Ice.AsyncResult begin_report(String action, song s, Ice.Callback __cb)
+    public Ice.AsyncResult begin_newSong(song s, Ice.Callback __cb)
     {
-        return begin_report(action, s, null, false, __cb);
+        return begin_newSong(s, null, false, __cb);
     }
 
-    public Ice.AsyncResult begin_report(String action, song s, java.util.Map<String, String> __ctx, Ice.Callback __cb)
+    public Ice.AsyncResult begin_newSong(song s, java.util.Map<String, String> __ctx, Ice.Callback __cb)
     {
-        return begin_report(action, s, __ctx, true, __cb);
+        return begin_newSong(s, __ctx, true, __cb);
     }
 
-    public Ice.AsyncResult begin_report(String action, song s, Callback_Monitor_report __cb)
+    public Ice.AsyncResult begin_newSong(song s, Callback_Monitor_newSong __cb)
     {
-        return begin_report(action, s, null, false, __cb);
+        return begin_newSong(s, null, false, __cb);
     }
 
-    public Ice.AsyncResult begin_report(String action, song s, java.util.Map<String, String> __ctx, Callback_Monitor_report __cb)
+    public Ice.AsyncResult begin_newSong(song s, java.util.Map<String, String> __ctx, Callback_Monitor_newSong __cb)
     {
-        return begin_report(action, s, __ctx, true, __cb);
+        return begin_newSong(s, __ctx, true, __cb);
     }
 
-    private Ice.AsyncResult begin_report(String action, song s, java.util.Map<String, String> __ctx, boolean __explicitCtx, IceInternal.CallbackBase __cb)
+    private Ice.AsyncResult begin_newSong(song s, java.util.Map<String, String> __ctx, boolean __explicitCtx, IceInternal.CallbackBase __cb)
     {
-        IceInternal.OutgoingAsync __result = new IceInternal.OutgoingAsync(this, __report_name, __cb);
+        IceInternal.OutgoingAsync __result = new IceInternal.OutgoingAsync(this, __newSong_name, __cb);
         try
         {
-            __result.__prepare(__report_name, Ice.OperationMode.Normal, __ctx, __explicitCtx);
+            __result.__prepare(__newSong_name, Ice.OperationMode.Normal, __ctx, __explicitCtx);
             IceInternal.BasicStream __os = __result.__startWriteParams(Ice.FormatType.DefaultFormat);
-            __os.writeString(action);
             s.__write(__os);
             __result.__endWriteParams();
             __result.__send(true);
@@ -122,9 +121,317 @@ public final class MonitorPrxHelper extends Ice.ObjectPrxHelperBase implements M
         return __result;
     }
 
-    public void end_report(Ice.AsyncResult __result)
+    public void end_newSong(Ice.AsyncResult __result)
     {
-        __end(__result, __report_name);
+        __end(__result, __newSong_name);
+    }
+
+    private static final String __serverDown_name = "serverDown";
+
+    public void serverDown()
+    {
+        serverDown(null, false);
+    }
+
+    public void serverDown(java.util.Map<String, String> __ctx)
+    {
+        serverDown(__ctx, true);
+    }
+
+    private void serverDown(java.util.Map<String, String> __ctx, boolean __explicitCtx)
+    {
+        if(__explicitCtx && __ctx == null)
+        {
+            __ctx = _emptyContext;
+        }
+        final Ice.Instrumentation.InvocationObserver __observer = IceInternal.ObserverHelper.get(this, "serverDown", __ctx);
+        int __cnt = 0;
+        try
+        {
+            while(true)
+            {
+                Ice._ObjectDel __delBase = null;
+                try
+                {
+                    __delBase = __getDelegate(false);
+                    _MonitorDel __del = (_MonitorDel)__delBase;
+                    __del.serverDown(__ctx, __observer);
+                    return;
+                }
+                catch(IceInternal.LocalExceptionWrapper __ex)
+                {
+                    __handleExceptionWrapper(__delBase, __ex, __observer);
+                }
+                catch(Ice.LocalException __ex)
+                {
+                    __cnt = __handleException(__delBase, __ex, null, __cnt, __observer);
+                }
+            }
+        }
+        finally
+        {
+            if(__observer != null)
+            {
+                __observer.detach();
+            }
+        }
+    }
+
+    public Ice.AsyncResult begin_serverDown()
+    {
+        return begin_serverDown(null, false, null);
+    }
+
+    public Ice.AsyncResult begin_serverDown(java.util.Map<String, String> __ctx)
+    {
+        return begin_serverDown(__ctx, true, null);
+    }
+
+    public Ice.AsyncResult begin_serverDown(Ice.Callback __cb)
+    {
+        return begin_serverDown(null, false, __cb);
+    }
+
+    public Ice.AsyncResult begin_serverDown(java.util.Map<String, String> __ctx, Ice.Callback __cb)
+    {
+        return begin_serverDown(__ctx, true, __cb);
+    }
+
+    public Ice.AsyncResult begin_serverDown(Callback_Monitor_serverDown __cb)
+    {
+        return begin_serverDown(null, false, __cb);
+    }
+
+    public Ice.AsyncResult begin_serverDown(java.util.Map<String, String> __ctx, Callback_Monitor_serverDown __cb)
+    {
+        return begin_serverDown(__ctx, true, __cb);
+    }
+
+    private Ice.AsyncResult begin_serverDown(java.util.Map<String, String> __ctx, boolean __explicitCtx, IceInternal.CallbackBase __cb)
+    {
+        IceInternal.OutgoingAsync __result = new IceInternal.OutgoingAsync(this, __serverDown_name, __cb);
+        try
+        {
+            __result.__prepare(__serverDown_name, Ice.OperationMode.Normal, __ctx, __explicitCtx);
+            __result.__writeEmptyParams();
+            __result.__send(true);
+        }
+        catch(Ice.LocalException __ex)
+        {
+            __result.__exceptionAsync(__ex);
+        }
+        return __result;
+    }
+
+    public void end_serverDown(Ice.AsyncResult __result)
+    {
+        __end(__result, __serverDown_name);
+    }
+
+    private static final String __serverUp_name = "serverUp";
+
+    public void serverUp()
+    {
+        serverUp(null, false);
+    }
+
+    public void serverUp(java.util.Map<String, String> __ctx)
+    {
+        serverUp(__ctx, true);
+    }
+
+    private void serverUp(java.util.Map<String, String> __ctx, boolean __explicitCtx)
+    {
+        if(__explicitCtx && __ctx == null)
+        {
+            __ctx = _emptyContext;
+        }
+        final Ice.Instrumentation.InvocationObserver __observer = IceInternal.ObserverHelper.get(this, "serverUp", __ctx);
+        int __cnt = 0;
+        try
+        {
+            while(true)
+            {
+                Ice._ObjectDel __delBase = null;
+                try
+                {
+                    __delBase = __getDelegate(false);
+                    _MonitorDel __del = (_MonitorDel)__delBase;
+                    __del.serverUp(__ctx, __observer);
+                    return;
+                }
+                catch(IceInternal.LocalExceptionWrapper __ex)
+                {
+                    __handleExceptionWrapper(__delBase, __ex, __observer);
+                }
+                catch(Ice.LocalException __ex)
+                {
+                    __cnt = __handleException(__delBase, __ex, null, __cnt, __observer);
+                }
+            }
+        }
+        finally
+        {
+            if(__observer != null)
+            {
+                __observer.detach();
+            }
+        }
+    }
+
+    public Ice.AsyncResult begin_serverUp()
+    {
+        return begin_serverUp(null, false, null);
+    }
+
+    public Ice.AsyncResult begin_serverUp(java.util.Map<String, String> __ctx)
+    {
+        return begin_serverUp(__ctx, true, null);
+    }
+
+    public Ice.AsyncResult begin_serverUp(Ice.Callback __cb)
+    {
+        return begin_serverUp(null, false, __cb);
+    }
+
+    public Ice.AsyncResult begin_serverUp(java.util.Map<String, String> __ctx, Ice.Callback __cb)
+    {
+        return begin_serverUp(__ctx, true, __cb);
+    }
+
+    public Ice.AsyncResult begin_serverUp(Callback_Monitor_serverUp __cb)
+    {
+        return begin_serverUp(null, false, __cb);
+    }
+
+    public Ice.AsyncResult begin_serverUp(java.util.Map<String, String> __ctx, Callback_Monitor_serverUp __cb)
+    {
+        return begin_serverUp(__ctx, true, __cb);
+    }
+
+    private Ice.AsyncResult begin_serverUp(java.util.Map<String, String> __ctx, boolean __explicitCtx, IceInternal.CallbackBase __cb)
+    {
+        IceInternal.OutgoingAsync __result = new IceInternal.OutgoingAsync(this, __serverUp_name, __cb);
+        try
+        {
+            __result.__prepare(__serverUp_name, Ice.OperationMode.Normal, __ctx, __explicitCtx);
+            __result.__writeEmptyParams();
+            __result.__send(true);
+        }
+        catch(Ice.LocalException __ex)
+        {
+            __result.__exceptionAsync(__ex);
+        }
+        return __result;
+    }
+
+    public void end_serverUp(Ice.AsyncResult __result)
+    {
+        __end(__result, __serverUp_name);
+    }
+
+    private static final String __songRemoved_name = "songRemoved";
+
+    public void songRemoved(song s)
+    {
+        songRemoved(s, null, false);
+    }
+
+    public void songRemoved(song s, java.util.Map<String, String> __ctx)
+    {
+        songRemoved(s, __ctx, true);
+    }
+
+    private void songRemoved(song s, java.util.Map<String, String> __ctx, boolean __explicitCtx)
+    {
+        if(__explicitCtx && __ctx == null)
+        {
+            __ctx = _emptyContext;
+        }
+        final Ice.Instrumentation.InvocationObserver __observer = IceInternal.ObserverHelper.get(this, "songRemoved", __ctx);
+        int __cnt = 0;
+        try
+        {
+            while(true)
+            {
+                Ice._ObjectDel __delBase = null;
+                try
+                {
+                    __delBase = __getDelegate(false);
+                    _MonitorDel __del = (_MonitorDel)__delBase;
+                    __del.songRemoved(s, __ctx, __observer);
+                    return;
+                }
+                catch(IceInternal.LocalExceptionWrapper __ex)
+                {
+                    __handleExceptionWrapper(__delBase, __ex, __observer);
+                }
+                catch(Ice.LocalException __ex)
+                {
+                    __cnt = __handleException(__delBase, __ex, null, __cnt, __observer);
+                }
+            }
+        }
+        finally
+        {
+            if(__observer != null)
+            {
+                __observer.detach();
+            }
+        }
+    }
+
+    public Ice.AsyncResult begin_songRemoved(song s)
+    {
+        return begin_songRemoved(s, null, false, null);
+    }
+
+    public Ice.AsyncResult begin_songRemoved(song s, java.util.Map<String, String> __ctx)
+    {
+        return begin_songRemoved(s, __ctx, true, null);
+    }
+
+    public Ice.AsyncResult begin_songRemoved(song s, Ice.Callback __cb)
+    {
+        return begin_songRemoved(s, null, false, __cb);
+    }
+
+    public Ice.AsyncResult begin_songRemoved(song s, java.util.Map<String, String> __ctx, Ice.Callback __cb)
+    {
+        return begin_songRemoved(s, __ctx, true, __cb);
+    }
+
+    public Ice.AsyncResult begin_songRemoved(song s, Callback_Monitor_songRemoved __cb)
+    {
+        return begin_songRemoved(s, null, false, __cb);
+    }
+
+    public Ice.AsyncResult begin_songRemoved(song s, java.util.Map<String, String> __ctx, Callback_Monitor_songRemoved __cb)
+    {
+        return begin_songRemoved(s, __ctx, true, __cb);
+    }
+
+    private Ice.AsyncResult begin_songRemoved(song s, java.util.Map<String, String> __ctx, boolean __explicitCtx, IceInternal.CallbackBase __cb)
+    {
+        IceInternal.OutgoingAsync __result = new IceInternal.OutgoingAsync(this, __songRemoved_name, __cb);
+        try
+        {
+            __result.__prepare(__songRemoved_name, Ice.OperationMode.Normal, __ctx, __explicitCtx);
+            IceInternal.BasicStream __os = __result.__startWriteParams(Ice.FormatType.DefaultFormat);
+            s.__write(__os);
+            __result.__endWriteParams();
+            __result.__send(true);
+        }
+        catch(Ice.LocalException __ex)
+        {
+            __result.__exceptionAsync(__ex);
+        }
+        return __result;
+    }
+
+    public void end_songRemoved(Ice.AsyncResult __result)
+    {
+        __end(__result, __songRemoved_name);
     }
 
     public static MonitorPrx checkedCast(Ice.ObjectPrx __obj)

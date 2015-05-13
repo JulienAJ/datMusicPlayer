@@ -22,11 +22,11 @@ package Player;
 
 public final class _MonitorDelD extends Ice._ObjectDelD implements _MonitorDel
 {
-    public void report(final String action, final song s, java.util.Map<String, String> __ctx, Ice.Instrumentation.InvocationObserver __observer)
+    public void newSong(final song s, java.util.Map<String, String> __ctx, Ice.Instrumentation.InvocationObserver __observer)
         throws IceInternal.LocalExceptionWrapper
     {
         final Ice.Current __current = new Ice.Current();
-        __initCurrent(__current, "report", Ice.OperationMode.Normal, __ctx);
+        __initCurrent(__current, "newSong", Ice.OperationMode.Normal, __ctx);
         IceInternal.Direct __direct = null;
         try
         {
@@ -43,7 +43,154 @@ public final class _MonitorDelD extends Ice._ObjectDelD implements _MonitorDel
                     {
                         throw new Ice.OperationNotExistException(__current.id, __current.facet, __current.operation);
                     }
-                    __servant.report(action, s, __current);
+                    __servant.newSong(s, __current);
+                    return Ice.DispatchStatus.DispatchOK;
+                }
+            };
+            try
+            {
+                Ice.DispatchStatus __status = __direct.getServant().__collocDispatch(__direct);
+                if(__status == Ice.DispatchStatus.DispatchUserException)
+                {
+                    __direct.throwUserException();
+                }
+                assert __status == Ice.DispatchStatus.DispatchOK;
+            }
+            finally
+            {
+                __direct.destroy();
+            }
+        }
+        catch(Ice.SystemException __ex)
+        {
+            throw __ex;
+        }
+        catch(java.lang.Throwable __ex)
+        {
+            IceInternal.LocalExceptionWrapper.throwWrapper(__ex);
+        }
+    }
+
+    public void serverDown(java.util.Map<String, String> __ctx, Ice.Instrumentation.InvocationObserver __observer)
+        throws IceInternal.LocalExceptionWrapper
+    {
+        final Ice.Current __current = new Ice.Current();
+        __initCurrent(__current, "serverDown", Ice.OperationMode.Normal, __ctx);
+        IceInternal.Direct __direct = null;
+        try
+        {
+            __direct = new IceInternal.Direct(__current)
+            {
+                public Ice.DispatchStatus run(Ice.Object __obj)
+                {
+                    Monitor __servant = null;
+                    if(__obj == null || __obj instanceof Monitor)
+                    {
+                        __servant = (Monitor)__obj;
+                    }
+                    else
+                    {
+                        throw new Ice.OperationNotExistException(__current.id, __current.facet, __current.operation);
+                    }
+                    __servant.serverDown(__current);
+                    return Ice.DispatchStatus.DispatchOK;
+                }
+            };
+            try
+            {
+                Ice.DispatchStatus __status = __direct.getServant().__collocDispatch(__direct);
+                if(__status == Ice.DispatchStatus.DispatchUserException)
+                {
+                    __direct.throwUserException();
+                }
+                assert __status == Ice.DispatchStatus.DispatchOK;
+            }
+            finally
+            {
+                __direct.destroy();
+            }
+        }
+        catch(Ice.SystemException __ex)
+        {
+            throw __ex;
+        }
+        catch(java.lang.Throwable __ex)
+        {
+            IceInternal.LocalExceptionWrapper.throwWrapper(__ex);
+        }
+    }
+
+    public void serverUp(java.util.Map<String, String> __ctx, Ice.Instrumentation.InvocationObserver __observer)
+        throws IceInternal.LocalExceptionWrapper
+    {
+        final Ice.Current __current = new Ice.Current();
+        __initCurrent(__current, "serverUp", Ice.OperationMode.Normal, __ctx);
+        IceInternal.Direct __direct = null;
+        try
+        {
+            __direct = new IceInternal.Direct(__current)
+            {
+                public Ice.DispatchStatus run(Ice.Object __obj)
+                {
+                    Monitor __servant = null;
+                    if(__obj == null || __obj instanceof Monitor)
+                    {
+                        __servant = (Monitor)__obj;
+                    }
+                    else
+                    {
+                        throw new Ice.OperationNotExistException(__current.id, __current.facet, __current.operation);
+                    }
+                    __servant.serverUp(__current);
+                    return Ice.DispatchStatus.DispatchOK;
+                }
+            };
+            try
+            {
+                Ice.DispatchStatus __status = __direct.getServant().__collocDispatch(__direct);
+                if(__status == Ice.DispatchStatus.DispatchUserException)
+                {
+                    __direct.throwUserException();
+                }
+                assert __status == Ice.DispatchStatus.DispatchOK;
+            }
+            finally
+            {
+                __direct.destroy();
+            }
+        }
+        catch(Ice.SystemException __ex)
+        {
+            throw __ex;
+        }
+        catch(java.lang.Throwable __ex)
+        {
+            IceInternal.LocalExceptionWrapper.throwWrapper(__ex);
+        }
+    }
+
+    public void songRemoved(final song s, java.util.Map<String, String> __ctx, Ice.Instrumentation.InvocationObserver __observer)
+        throws IceInternal.LocalExceptionWrapper
+    {
+        final Ice.Current __current = new Ice.Current();
+        __initCurrent(__current, "songRemoved", Ice.OperationMode.Normal, __ctx);
+        IceInternal.Direct __direct = null;
+        try
+        {
+            __direct = new IceInternal.Direct(__current)
+            {
+                public Ice.DispatchStatus run(Ice.Object __obj)
+                {
+                    Monitor __servant = null;
+                    if(__obj == null || __obj instanceof Monitor)
+                    {
+                        __servant = (Monitor)__obj;
+                    }
+                    else
+                    {
+                        throw new Ice.OperationNotExistException(__current.id, __current.facet, __current.operation);
+                    }
+                    __servant.songRemoved(s, __current);
                     return Ice.DispatchStatus.DispatchOK;
                 }
             };

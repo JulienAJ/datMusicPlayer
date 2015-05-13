@@ -23,16 +23,138 @@ package Player;
 public final class _MonitorDelM extends Ice._ObjectDelM implements _MonitorDel
 {
     public void
-    report(String action, song s, java.util.Map<String, String> __ctx, Ice.Instrumentation.InvocationObserver __observer)
+    newSong(song s, java.util.Map<String, String> __ctx, Ice.Instrumentation.InvocationObserver __observer)
         throws IceInternal.LocalExceptionWrapper
     {
-        IceInternal.Outgoing __og = __handler.getOutgoing("report", Ice.OperationMode.Normal, __ctx, __observer);
+        IceInternal.Outgoing __og = __handler.getOutgoing("newSong", Ice.OperationMode.Normal, __ctx, __observer);
         try
         {
             try
             {
                 IceInternal.BasicStream __os = __og.startWriteParams(Ice.FormatType.DefaultFormat);
-                __os.writeString(action);
+                s.__write(__os);
+                __og.endWriteParams();
+            }
+            catch(Ice.LocalException __ex)
+            {
+                __og.abort(__ex);
+            }
+            boolean __ok = __og.invoke();
+            if(__og.hasResponse())
+            {
+                try
+                {
+                    if(!__ok)
+                    {
+                        try
+                        {
+                            __og.throwUserException();
+                        }
+                        catch(Ice.UserException __ex)
+                        {
+                            throw new Ice.UnknownUserException(__ex.ice_name(), __ex);
+                        }
+                    }
+                    __og.readEmptyParams();
+                }
+                catch(Ice.LocalException __ex)
+                {
+                    throw new IceInternal.LocalExceptionWrapper(__ex, false);
+                }
+            }
+        }
+        finally
+        {
+            __handler.reclaimOutgoing(__og);
+        }
+    }
+
+    public void
+    serverDown(java.util.Map<String, String> __ctx, Ice.Instrumentation.InvocationObserver __observer)
+        throws IceInternal.LocalExceptionWrapper
+    {
+        IceInternal.Outgoing __og = __handler.getOutgoing("serverDown", Ice.OperationMode.Normal, __ctx, __observer);
+        try
+        {
+            __og.writeEmptyParams();
+            boolean __ok = __og.invoke();
+            if(__og.hasResponse())
+            {
+                try
+                {
+                    if(!__ok)
+                    {
+                        try
+                        {
+                            __og.throwUserException();
+                        }
+                        catch(Ice.UserException __ex)
+                        {
+                            throw new Ice.UnknownUserException(__ex.ice_name(), __ex);
+                        }
+                    }
+                    __og.readEmptyParams();
+                }
+                catch(Ice.LocalException __ex)
+                {
+                    throw new IceInternal.LocalExceptionWrapper(__ex, false);
+                }
+            }
+        }
+        finally
+        {
+            __handler.reclaimOutgoing(__og);
+        }
+    }
+
+    public void
+    serverUp(java.util.Map<String, String> __ctx, Ice.Instrumentation.InvocationObserver __observer)
+        throws IceInternal.LocalExceptionWrapper
+    {
+        IceInternal.Outgoing __og = __handler.getOutgoing("serverUp", Ice.OperationMode.Normal, __ctx, __observer);
+        try
+        {
+            __og.writeEmptyParams();
+            boolean __ok = __og.invoke();
+            if(__og.hasResponse())
+            {
+                try
+                {
+                    if(!__ok)
+                    {
+                        try
+                        {
+                            __og.throwUserException();
+                        }
+                        catch(Ice.UserException __ex)
+                        {
+                            throw new Ice.UnknownUserException(__ex.ice_name(), __ex);
+                        }
+                    }
+                    __og.readEmptyParams();
+                }
+                catch(Ice.LocalException __ex)
+                {
+                    throw new IceInternal.LocalExceptionWrapper(__ex, false);
+                }
+            }
+        }
+        finally
+        {
+            __handler.reclaimOutgoing(__og);
+        }
+    }
+
+    public void
+    songRemoved(song s, java.util.Map<String, String> __ctx, Ice.Instrumentation.InvocationObserver __observer)
+        throws IceInternal.LocalExceptionWrapper
+    {
+        IceInternal.Outgoing __og = __handler.getOutgoing("songRemoved", Ice.OperationMode.Normal, __ctx, __observer);
+        try
+        {
+            try
+            {
+                IceInternal.BasicStream __os = __og.startWriteParams(Ice.FormatType.DefaultFormat);
                 s.__write(__os);
                 __og.endWriteParams();
             }

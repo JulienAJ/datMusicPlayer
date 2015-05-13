@@ -18,7 +18,6 @@ import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 import java.io.BufferedInputStream;
 import java.io.FileNotFoundException;
@@ -27,6 +26,7 @@ import java.io.InputStream;
 import java.util.Arrays;
 
 import Ice.IllegalMessageSizeException;
+import alonsojimenez.julien.datmusicplayer.musicServer.ServerHandler;
 
 
 public class AddActivity extends ActionBarActivity
@@ -40,6 +40,8 @@ public class AddActivity extends ActionBarActivity
     private Uri coverUri = null;
     private Uri songUri = null;
     private ProgressDialog progressDialog = null;
+
+    private String serverIdentifier;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -105,21 +107,25 @@ public class AddActivity extends ActionBarActivity
 
             int offset = 0;
 
-            if(size <= ServerHandler.getMessageSizeMax())
+            serverIdentifier = ServerHandler.getLessLoadedServer();
+            if(serverIdentifier == null)
+                return;
+
+            if(size <= ServerHandler.getMessageSizeMax(serverIdentifier))
             {
-                ServerHandler.getServer().write(name, offset, data);
+                ServerHandler.write(serverIdentifier, name, offset, data);
             }
 
             else
             {
-                int max = ServerHandler.getMessageSizeMax();
+                int max = ServerHandler.getMessageSizeMax(serverIdentifier);
                 while(offset < size)
                 {
                     int end = offset + max;
                     if(end > size)
                         end = size;
                     byte[] temp = Arrays.copyOfRange(data, offset, end);
-                    ServerHandler.getServer().write(name, offset, temp);
+                    ServerHandler.write(serverIdentifier, name, offset, temp);
                     offset = end;
                 }
             }
@@ -225,7 +231,7 @@ public class AddActivity extends ActionBarActivity
             if(progressDialog.isShowing())
                 progressDialog.dismiss();
 
-            ServerHandler.getServer().addSong(name, artist, path);
+            ServerHandler.addSong(serverIdentifier, name, artist, path);
             Toast.makeText(getApplicationContext(), name + " " + getString(R.string.by) + " "
                     + artist + " " + getString(R.string.addSuccess), Toast.LENGTH_SHORT).show();
             finish();

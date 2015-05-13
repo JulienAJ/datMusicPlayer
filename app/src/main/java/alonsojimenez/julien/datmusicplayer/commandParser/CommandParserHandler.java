@@ -1,18 +1,12 @@
-package alonsojimenez.julien.datmusicplayer;
-
-import android.util.Log;
-import android.widget.Toast;
+package alonsojimenez.julien.datmusicplayer.commandParser;
 
 import org.ksoap2.SoapEnvelope;
 import org.ksoap2.serialization.SoapObject;
-import org.ksoap2.serialization.SoapPrimitive;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
-import org.ksoap2.transport.HttpsTransportSE;
 
 import java.net.Proxy;
 
-import Messages.Command;
 
 /**
  * Created by julien on 05/05/15.

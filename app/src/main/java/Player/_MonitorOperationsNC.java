@@ -22,5 +22,11 @@ package Player;
 
 public interface _MonitorOperationsNC
 {
-    void report(String action, song s);
+    void songRemoved(song s);
+
+    void newSong(song s);
+
+    void serverUp();
+
+    void serverDown();
 }
