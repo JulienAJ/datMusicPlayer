@@ -2,12 +2,14 @@ package alonsojimenez.julien.datmusicplayer;
 
 import android.content.Intent;
 import android.os.StrictMode;
+import android.speech.SpeechRecognizer;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -20,16 +22,16 @@ import alonsojimenez.julien.datmusicplayer.voiceRecognition.AndroidVoiceRecogniz
 import alonsojimenez.julien.datmusicplayer.voiceRecognition.IRecognitionResultListener;
 import alonsojimenez.julien.datmusicplayer.voiceRecognition.IVoiceRecognizer;
 import alonsojimenez.julien.datmusicplayer.voiceRecognition.SphinxVoiceRecognizer;
+import alonsojimenez.julien.datmusicplayer.voiceRecognition.VoiceRecognizerFactory;
 
 
 public class MainActivity extends ActionBarActivity
 {
     private static String defaultServerHostName = "datdroplet.ovh";
     private static String defaultServerPort = "10000";
-    private static String defaultServerStreamingPort = "8090";
 
     boolean recording = false;
-    IVoiceRecognizer voiceRecognizer = new AndroidVoiceRecognizer();
+    IVoiceRecognizer voiceRecognizer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -37,13 +39,30 @@ public class MainActivity extends ActionBarActivity
         super.onCreate(savedInstanceState);
 
         ServerHandler.initMonitor(getApplicationContext());
-        ServerHandler.addServer("188.226.154.9", "15000", defaultServerStreamingPort);
-        ServerHandler.addServer(defaultServerHostName, defaultServerPort, defaultServerStreamingPort);
+        //ServerHandler.addServer("188.226.154.9", "15000");
+        ServerHandler.addServer(defaultServerHostName, defaultServerPort);
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
-        voiceRecognizer.init(getApplicationContext());
+        if(SpeechRecognizer.isRecognitionAvailable(this))
+            Settings.setVoiceRecognizer(VoiceRecognizerFactory.create(AndroidVoiceRecognizer.class));
+        else
+            Settings.setVoiceRecognizer(VoiceRecognizerFactory.create(SphinxVoiceRecognizer.class));
+
+        setContentView(R.layout.activity_main);
+
+        setupSearchInputHandlers();
+        this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+    }
+
+    @Override
+    protected void onResume()
+    {
+        super.onResume();
+        voiceRecognizer = Settings.getVoiceRecognizer();
+        voiceRecognizer.init(this);
+
         voiceRecognizer.setRecognitionResultListener(new IRecognitionResultListener()
         {
             @Override
@@ -54,10 +73,6 @@ public class MainActivity extends ActionBarActivity
                     onCommand(command);
             }
         });
-
-        setContentView(R.layout.activity_main);
-
-        setupSearchInputHandlers();
     }
 
     public void onAction(View v)
@@ -153,7 +168,6 @@ public class MainActivity extends ActionBarActivity
 
     private void onCommand(Command command)
     {
-        // TODO do more stuff when user talks
         if(command.getAction() == Action.ADD)
         {
             Intent intent = new Intent(this, AddActivity.class);
@@ -163,7 +177,7 @@ public class MainActivity extends ActionBarActivity
             startActivity(intent);
         }
 
-        else if(command.getAction() == Action.REMOVE || command.getAction() == Action.PLAY)
+        else
         {
             if(command.getTitle() == null)
                 return;
@@ -181,14 +195,9 @@ public class MainActivity extends ActionBarActivity
                 intent.putExtra("searchType", SearchType.BOTH);
                 intent.putExtra("title", command.getTitle());
                 intent.putExtra("artist", command.getArtist());
-                if(command.getAction() == Action.REMOVE)
-                    intent.putExtra("isRemove", true);
             }
             startActivity(intent);
         }
-
-        else if(command.getAction() == Action.SEARCH)
-        {}
     }
 
     private void setupSearchInputHandlers()

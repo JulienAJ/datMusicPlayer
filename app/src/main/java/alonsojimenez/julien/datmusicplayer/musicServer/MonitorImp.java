@@ -62,11 +62,13 @@ public class MonitorImp extends _MonitorDisp
     public void serverUp(Current __current)
     {
         notify("A Server is Up !");
+        Log.e("Monitor", "Server Up");
     }
 
     @Override
     public void serverDown(Current __current)
     {
         notify("A Server is Down !");
+        Log.e("Monitor", "Server Down");
     }
 }

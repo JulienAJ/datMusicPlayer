@@ -26,7 +26,7 @@ public interface _ServerOperations
 
     String getStreamingPort(Ice.Current __current);
 
-    void addSong(String name, String artist, String path, Ice.Current __current);
+    void addSong(String name, String artist, String path, String coverPath, Ice.Current __current);
 
     void remove(String path, Ice.Current __current);
 
@@ -49,4 +49,6 @@ public interface _ServerOperations
     void write(String name, int offset, byte[] data, Ice.Current __current);
 
     byte[] read(String filename, int offset, int count, Ice.Current __current);
+
+    int getFileSize(String path, Ice.Current __current);
 }

@@ -1,17 +1,29 @@
 package alonsojimenez.julien.datmusicplayer;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
+import android.graphics.RectF;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Arrays;
 
 import Player.song;
 import alonsojimenez.julien.datmusicplayer.musicServer.ServerHandler;
@@ -34,7 +46,6 @@ public class SongActivity extends ActionBarActivity
         setContentView(R.layout.activity_song);
 
         ParcelableSong parcelableSong = getIntent().getParcelableExtra("SONG");
-        // TODO get why
         s = parcelableSong.getSong();
         boolean isRemove = getIntent().getExtras().getBoolean("isRemove", false);
 
@@ -42,6 +53,42 @@ public class SongActivity extends ActionBarActivity
         {
             serverId = ServerHandler.cutPath(s.path, true);
             s.path = ServerHandler.cutPath(s.path, false);
+            String coverPath = s.coverPath;
+            if(coverPath != null && coverPath != "" && coverPath.length() != 0)
+            {
+                int size = ServerHandler.getFileSize(serverId, s.coverPath);
+                ByteArrayOutputStream stream = new ByteArrayOutputStream(size);
+                try
+                {
+                    int offset = 0;
+                    int max = ServerHandler.getMessageSizeMax(serverId);
+                    while(offset < size)
+                    {
+                        int end = offset + max;
+                        if(end > size)
+                            end = size;
+
+                        byte[] data = ServerHandler.read(serverId, s.coverPath, offset, end);
+                        stream.write(data);
+                        offset = end;
+                    }
+
+                    byte[] image = stream.toByteArray();
+                    Bitmap bitmap = BitmapFactory.decodeByteArray(image, 0, image.length);
+                    ((ImageView) findViewById(R.id.imgView2)).setImageBitmap(getScaledCover(bitmap, 250, 250));
+
+                }
+                catch (Exception e)
+                {
+                    e.printStackTrace();
+                }
+            }
+
+            else
+            {
+                Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.music_launcher);
+                ((ImageView) findViewById(R.id.imgView2)).setImageBitmap(getScaledCover(bitmap, 250, 250));
+            }
             TextView temp = (TextView)findViewById(R.id.nameLabelSong);
             if(temp != null)
                 temp.setText(s.name);
@@ -83,6 +130,13 @@ public class SongActivity extends ActionBarActivity
         else
             finish();
 
+    }
+
+    public Bitmap getScaledCover(Bitmap bmp, int width, int height)
+    {
+        Matrix m = new Matrix();
+        m.setRectToRect(new RectF(0, 0, bmp.getWidth(), bmp.getHeight()), new RectF(0, 0, width, height), Matrix.ScaleToFit.CENTER);
+        return Bitmap.createBitmap(bmp, 0, 0, bmp.getWidth(), bmp.getHeight(), m, true);
     }
 
     public void onRemove(View v)

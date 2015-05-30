@@ -15,11 +15,13 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.webkit.MimeTypeMap;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 import java.io.BufferedInputStream;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -48,6 +50,7 @@ public class AddActivity extends ActionBarActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add);
+        this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
         params = getIntent().getExtras().getBoolean("params");
 
@@ -86,7 +89,7 @@ public class AddActivity extends ActionBarActivity
         new Async().execute();
     }
 
-    public void upload(Uri uri, boolean isSong, String name)
+    public void upload(Uri uri, String name)
     {
         try
         {
@@ -159,6 +162,13 @@ public class AddActivity extends ActionBarActivity
             }
             else if(requestCode == PICK_SONG_REQUEST)
             {
+                Uri temp = data.getData();
+                String ext = MimeTypeMap.getSingleton().getExtensionFromMimeType(getContentResolver().getType(temp));
+                if(ext != "mp3")
+                {
+                    Toast.makeText(this, R.string.noMP3, Toast.LENGTH_SHORT);
+                    return;
+                }
                 this.songUri = data.getData();
                 ((EditText)findViewById(R.id.pathAdd)).setText(songUri.toString());
                 if(!params)
@@ -196,7 +206,7 @@ public class AddActivity extends ActionBarActivity
 
     private class Async extends AsyncTask<Void, Integer, Void>
     {
-        private String name, artist, upName, path;
+        private String name, artist, upName, path, coverPath;
 
         protected void onPreExecute()
         {
@@ -207,11 +217,17 @@ public class AddActivity extends ActionBarActivity
 
             upName = (artist + "_" + name).replaceAll(" ", "_");
             path = upName + ".mp3";
+            if(coverUri != null)
+            {
+                String coverExt = MimeTypeMap.getSingleton().getExtensionFromMimeType(getContentResolver().getType(coverUri));
+                coverPath = upName + "." + coverExt;
+            }
+            else
+                coverPath = "";
 
             progressDialog = new ProgressDialog(AddActivity.this);
             progressDialog.setMessage("Uploading...");
             progressDialog.setCanceledOnTouchOutside(false);
-            //progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
             progressDialog.show();
         }
 
@@ -219,9 +235,9 @@ public class AddActivity extends ActionBarActivity
         protected Void doInBackground(Void... params)
         {
             if(coverUri != null)
-                upload(coverUri, false, upName);
+                upload(coverUri, upName);
 
-            upload(songUri, true, upName);
+            upload(songUri, upName);
 
             return null;
         }
@@ -231,7 +247,7 @@ public class AddActivity extends ActionBarActivity
             if(progressDialog.isShowing())
                 progressDialog.dismiss();
 
-            ServerHandler.addSong(serverIdentifier, name, artist, path);
+            ServerHandler.addSong(serverIdentifier, name, artist, path, coverPath);
             Toast.makeText(getApplicationContext(), name + " " + getString(R.string.by) + " "
                     + artist + " " + getString(R.string.addSuccess), Toast.LENGTH_SHORT).show();
             finish();

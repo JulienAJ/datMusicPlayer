@@ -8,6 +8,7 @@ import java.util.Map;
 import Ice.Communicator;
 import Ice.Identity;
 import Ice.InitializationData;
+import Ice.LocalException;
 import Ice.ObjectPrx;
 import IceStorm.TopicManagerPrx;
 import IceStorm.TopicManagerPrxHelper;
@@ -28,13 +29,13 @@ public class Server
     private Glacier2.RouterPrx router;
     private static ObjectPrx monitorProxy;
     private static TopicPrx topic;
-    private int messageSizeMax = 1000000;
+    private int messageSizeMax = 800000;
 
-    public Server(String hostname, String port, String streamingPort)
+    public Server(String hostname, String port)
     {
         this.hostname = hostname;
         this.port = port;
-        this.streamingPort = streamingPort;
+        this.streamingPort = null;
     }
 
     public void initCommunicator(String glacierHostname, String glacierPort)
@@ -74,6 +75,23 @@ public class Server
         {
             Log.e("Glacier Router", e.getMessage());
         }
+    }
+
+    public boolean ping()
+    {
+        try
+        {
+            if (serverPrx != null)
+            {
+                serverPrx.ice_ping();
+                return true;
+            }
+        }
+        catch (LocalException e)
+        {
+            Log.e("Server Ping", "Server Offline");
+        }
+        return false;
     }
 
     public void destroy()
@@ -126,6 +144,7 @@ public class Server
                 Ice.ObjectPrx base = communicator.stringToProxy("Server:default -h " + this.hostname +
                         " -p " + this.port);
                 this.serverPrx = Player.ServerPrxHelper.checkedCast(base);
+                setupServerSettings();
                 Log.e("Initialize", "done");
             }
         }
@@ -150,6 +169,11 @@ public class Server
         return streamingPort;
     }
 
+    public void setupServerSettings()
+    {
+        this.streamingPort = serverPrx.getStreamingPort();
+    }
+
     public ServerPrx getServerPrx()
     {
         return serverPrx;
@@ -171,5 +195,10 @@ public class Server
             return -1;
 
         return serverPrx.getCount();
+    }
+
+    public static String identifierFromHostPort(String servHost, String servPort)
+    {
+        return servHost + ":" + servPort;
     }
 }

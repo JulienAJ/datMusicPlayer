@@ -26,7 +26,7 @@ public interface _ServerOperationsNC
 
     String getStreamingPort();
 
-    void addSong(String name, String artist, String path);
+    void addSong(String name, String artist, String path, String coverPath);
 
     void remove(String path);
 
@@ -49,4 +49,6 @@ public interface _ServerOperationsNC
     void write(String name, int offset, byte[] data);
 
     byte[] read(String filename, int offset, int count);
+
+    int getFileSize(String path);
 }

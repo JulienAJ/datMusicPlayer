@@ -70,9 +70,9 @@ public abstract class _ServerDisp extends Ice.ObjectImpl implements Server
         return __ids[1];
     }
 
-    public final void addSong(String name, String artist, String path)
+    public final void addSong(String name, String artist, String path, String coverPath)
     {
-        addSong(name, artist, path, null);
+        addSong(name, artist, path, coverPath, null);
     }
 
     public final song[] findByAny(String searchKey)
@@ -98,6 +98,11 @@ public abstract class _ServerDisp extends Ice.ObjectImpl implements Server
     public final int getCount()
     {
         return getCount(null);
+    }
+
+    public final int getFileSize(String path)
+    {
+        return getFileSize(path, null);
     }
 
     public final String getStreamingPort()
@@ -169,11 +174,13 @@ public abstract class _ServerDisp extends Ice.ObjectImpl implements Server
         String name;
         String artist;
         String path;
+        String coverPath;
         name = __is.readString();
         artist = __is.readString();
         path = __is.readString();
+        coverPath = __is.readString();
         __inS.endReadParams();
-        __obj.addSong(name, artist, path, __current);
+        __obj.addSong(name, artist, path, coverPath, __current);
         __inS.__writeEmptyParams();
         return Ice.DispatchStatus.DispatchOK;
     }
@@ -331,6 +338,20 @@ public abstract class _ServerDisp extends Ice.ObjectImpl implements Server
         return Ice.DispatchStatus.DispatchOK;
     }
 
+    public static Ice.DispatchStatus ___getFileSize(Server __obj, IceInternal.Incoming __inS, Ice.Current __current)
+    {
+        __checkMode(Ice.OperationMode.Normal, __current.mode);
+        IceInternal.BasicStream __is = __inS.startReadParams();
+        String path;
+        path = __is.readString();
+        __inS.endReadParams();
+        int __ret = __obj.getFileSize(path, __current);
+        IceInternal.BasicStream __os = __inS.__startWriteParams(Ice.FormatType.DefaultFormat);
+        __os.writeInt(__ret);
+        __inS.__endWriteParams(true);
+        return Ice.DispatchStatus.DispatchOK;
+    }
+
     private final static String[] __all =
     {
         "addSong",
@@ -339,6 +360,7 @@ public abstract class _ServerDisp extends Ice.ObjectImpl implements Server
         "findByBoth",
         "findByTitle",
         "getCount",
+        "getFileSize",
         "getStreamingPort",
         "ice_id",
         "ice_ids",
@@ -389,49 +411,53 @@ public abstract class _ServerDisp extends Ice.ObjectImpl implements Server
             }
             case 6:
             {
-                return ___getStreamingPort(this, in, __current);
+                return ___getFileSize(this, in, __current);
             }
             case 7:
             {
-                return ___ice_id(this, in, __current);
+                return ___getStreamingPort(this, in, __current);
             }
             case 8:
             {
-                return ___ice_ids(this, in, __current);
+                return ___ice_id(this, in, __current);
             }
             case 9:
             {
-                return ___ice_isA(this, in, __current);
+                return ___ice_ids(this, in, __current);
             }
             case 10:
             {
-                return ___ice_ping(this, in, __current);
+                return ___ice_isA(this, in, __current);
             }
             case 11:
             {
-                return ___list(this, in, __current);
+                return ___ice_ping(this, in, __current);
             }
             case 12:
             {
-                return ___play(this, in, __current);
+                return ___list(this, in, __current);
             }
             case 13:
             {
-                return ___read(this, in, __current);
+                return ___play(this, in, __current);
             }
             case 14:
             {
-                return ___remove(this, in, __current);
+                return ___read(this, in, __current);
             }
             case 15:
             {
-                return ___start(this, in, __current);
+                return ___remove(this, in, __current);
             }
             case 16:
             {
-                return ___stop(this, in, __current);
+                return ___start(this, in, __current);
             }
             case 17:
+            {
+                return ___stop(this, in, __current);
+            }
+            case 18:
             {
                 return ___write(this, in, __current);
             }

@@ -28,7 +28,7 @@ public interface _ServerDel extends Ice._ObjectDel
     String getStreamingPort(java.util.Map<String, String> __ctx, Ice.Instrumentation.InvocationObserver __obsv)
         throws IceInternal.LocalExceptionWrapper;
 
-    void addSong(String name, String artist, String path, java.util.Map<String, String> __ctx, Ice.Instrumentation.InvocationObserver __obsv)
+    void addSong(String name, String artist, String path, String coverPath, java.util.Map<String, String> __ctx, Ice.Instrumentation.InvocationObserver __obsv)
         throws IceInternal.LocalExceptionWrapper;
 
     void remove(String path, java.util.Map<String, String> __ctx, Ice.Instrumentation.InvocationObserver __obsv)
@@ -62,5 +62,8 @@ public interface _ServerDel extends Ice._ObjectDel
         throws IceInternal.LocalExceptionWrapper;
 
     byte[] read(String filename, int offset, int count, java.util.Map<String, String> __ctx, Ice.Instrumentation.InvocationObserver __obsv)
+        throws IceInternal.LocalExceptionWrapper;
+
+    int getFileSize(String path, java.util.Map<String, String> __ctx, Ice.Instrumentation.InvocationObserver __obsv)
         throws IceInternal.LocalExceptionWrapper;
 }

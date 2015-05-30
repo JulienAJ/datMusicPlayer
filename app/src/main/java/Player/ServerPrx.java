@@ -58,21 +58,21 @@ public interface ServerPrx extends Ice.ObjectPrx
 
     public String end_getStreamingPort(Ice.AsyncResult __result);
 
-    public void addSong(String name, String artist, String path);
+    public void addSong(String name, String artist, String path, String coverPath);
 
-    public void addSong(String name, String artist, String path, java.util.Map<String, String> __ctx);
+    public void addSong(String name, String artist, String path, String coverPath, java.util.Map<String, String> __ctx);
 
-    public Ice.AsyncResult begin_addSong(String name, String artist, String path);
+    public Ice.AsyncResult begin_addSong(String name, String artist, String path, String coverPath);
 
-    public Ice.AsyncResult begin_addSong(String name, String artist, String path, java.util.Map<String, String> __ctx);
+    public Ice.AsyncResult begin_addSong(String name, String artist, String path, String coverPath, java.util.Map<String, String> __ctx);
 
-    public Ice.AsyncResult begin_addSong(String name, String artist, String path, Ice.Callback __cb);
+    public Ice.AsyncResult begin_addSong(String name, String artist, String path, String coverPath, Ice.Callback __cb);
 
-    public Ice.AsyncResult begin_addSong(String name, String artist, String path, java.util.Map<String, String> __ctx, Ice.Callback __cb);
+    public Ice.AsyncResult begin_addSong(String name, String artist, String path, String coverPath, java.util.Map<String, String> __ctx, Ice.Callback __cb);
 
-    public Ice.AsyncResult begin_addSong(String name, String artist, String path, Callback_Server_addSong __cb);
+    public Ice.AsyncResult begin_addSong(String name, String artist, String path, String coverPath, Callback_Server_addSong __cb);
 
-    public Ice.AsyncResult begin_addSong(String name, String artist, String path, java.util.Map<String, String> __ctx, Callback_Server_addSong __cb);
+    public Ice.AsyncResult begin_addSong(String name, String artist, String path, String coverPath, java.util.Map<String, String> __ctx, Callback_Server_addSong __cb);
 
     public void end_addSong(Ice.AsyncResult __result);
 
@@ -273,4 +273,22 @@ public interface ServerPrx extends Ice.ObjectPrx
     public Ice.AsyncResult begin_read(String filename, int offset, int count, java.util.Map<String, String> __ctx, Callback_Server_read __cb);
 
     public byte[] end_read(Ice.AsyncResult __result);
+
+    public int getFileSize(String path);
+
+    public int getFileSize(String path, java.util.Map<String, String> __ctx);
+
+    public Ice.AsyncResult begin_getFileSize(String path);
+
+    public Ice.AsyncResult begin_getFileSize(String path, java.util.Map<String, String> __ctx);
+
+    public Ice.AsyncResult begin_getFileSize(String path, Ice.Callback __cb);
+
+    public Ice.AsyncResult begin_getFileSize(String path, java.util.Map<String, String> __ctx, Ice.Callback __cb);
+
+    public Ice.AsyncResult begin_getFileSize(String path, Callback_Server_getFileSize __cb);
+
+    public Ice.AsyncResult begin_getFileSize(String path, java.util.Map<String, String> __ctx, Callback_Server_getFileSize __cb);
+
+    public int end_getFileSize(Ice.AsyncResult __result);
 }

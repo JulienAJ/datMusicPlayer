@@ -69,7 +69,6 @@ public class SearchResultsActivity extends ActionBarActivity
                 Intent intent = new Intent(SearchResultsActivity.this, SongActivity.class);
                 intent.putExtra("SONG", (Parcelable)(new ParcelableSong(result)));
                 intent.putExtra("isRemove", isRemove);
-                // TODO say for what (removal, playing)
                 startActivity(intent);
             }
         }

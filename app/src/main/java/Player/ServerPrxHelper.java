@@ -24,17 +24,17 @@ public final class ServerPrxHelper extends Ice.ObjectPrxHelperBase implements Se
 {
     private static final String __addSong_name = "addSong";
 
-    public void addSong(String name, String artist, String path)
+    public void addSong(String name, String artist, String path, String coverPath)
     {
-        addSong(name, artist, path, null, false);
+        addSong(name, artist, path, coverPath, null, false);
     }
 
-    public void addSong(String name, String artist, String path, java.util.Map<String, String> __ctx)
+    public void addSong(String name, String artist, String path, String coverPath, java.util.Map<String, String> __ctx)
     {
-        addSong(name, artist, path, __ctx, true);
+        addSong(name, artist, path, coverPath, __ctx, true);
     }
 
-    private void addSong(String name, String artist, String path, java.util.Map<String, String> __ctx, boolean __explicitCtx)
+    private void addSong(String name, String artist, String path, String coverPath, java.util.Map<String, String> __ctx, boolean __explicitCtx)
     {
         if(__explicitCtx && __ctx == null)
         {
@@ -51,7 +51,7 @@ public final class ServerPrxHelper extends Ice.ObjectPrxHelperBase implements Se
                 {
                     __delBase = __getDelegate(false);
                     _ServerDel __del = (_ServerDel)__delBase;
-                    __del.addSong(name, artist, path, __ctx, __observer);
+                    __del.addSong(name, artist, path, coverPath, __ctx, __observer);
                     return;
                 }
                 catch(IceInternal.LocalExceptionWrapper __ex)
@@ -73,37 +73,37 @@ public final class ServerPrxHelper extends Ice.ObjectPrxHelperBase implements Se
         }
     }
 
-    public Ice.AsyncResult begin_addSong(String name, String artist, String path)
+    public Ice.AsyncResult begin_addSong(String name, String artist, String path, String coverPath)
     {
-        return begin_addSong(name, artist, path, null, false, null);
+        return begin_addSong(name, artist, path, coverPath, null, false, null);
     }
 
-    public Ice.AsyncResult begin_addSong(String name, String artist, String path, java.util.Map<String, String> __ctx)
+    public Ice.AsyncResult begin_addSong(String name, String artist, String path, String coverPath, java.util.Map<String, String> __ctx)
     {
-        return begin_addSong(name, artist, path, __ctx, true, null);
+        return begin_addSong(name, artist, path, coverPath, __ctx, true, null);
     }
 
-    public Ice.AsyncResult begin_addSong(String name, String artist, String path, Ice.Callback __cb)
+    public Ice.AsyncResult begin_addSong(String name, String artist, String path, String coverPath, Ice.Callback __cb)
     {
-        return begin_addSong(name, artist, path, null, false, __cb);
+        return begin_addSong(name, artist, path, coverPath, null, false, __cb);
     }
 
-    public Ice.AsyncResult begin_addSong(String name, String artist, String path, java.util.Map<String, String> __ctx, Ice.Callback __cb)
+    public Ice.AsyncResult begin_addSong(String name, String artist, String path, String coverPath, java.util.Map<String, String> __ctx, Ice.Callback __cb)
     {
-        return begin_addSong(name, artist, path, __ctx, true, __cb);
+        return begin_addSong(name, artist, path, coverPath, __ctx, true, __cb);
     }
 
-    public Ice.AsyncResult begin_addSong(String name, String artist, String path, Callback_Server_addSong __cb)
+    public Ice.AsyncResult begin_addSong(String name, String artist, String path, String coverPath, Callback_Server_addSong __cb)
     {
-        return begin_addSong(name, artist, path, null, false, __cb);
+        return begin_addSong(name, artist, path, coverPath, null, false, __cb);
     }
 
-    public Ice.AsyncResult begin_addSong(String name, String artist, String path, java.util.Map<String, String> __ctx, Callback_Server_addSong __cb)
+    public Ice.AsyncResult begin_addSong(String name, String artist, String path, String coverPath, java.util.Map<String, String> __ctx, Callback_Server_addSong __cb)
     {
-        return begin_addSong(name, artist, path, __ctx, true, __cb);
+        return begin_addSong(name, artist, path, coverPath, __ctx, true, __cb);
     }
 
-    private Ice.AsyncResult begin_addSong(String name, String artist, String path, java.util.Map<String, String> __ctx, boolean __explicitCtx, IceInternal.CallbackBase __cb)
+    private Ice.AsyncResult begin_addSong(String name, String artist, String path, String coverPath, java.util.Map<String, String> __ctx, boolean __explicitCtx, IceInternal.CallbackBase __cb)
     {
         IceInternal.OutgoingAsync __result = new IceInternal.OutgoingAsync(this, __addSong_name, __cb);
         try
@@ -113,6 +113,7 @@ public final class ServerPrxHelper extends Ice.ObjectPrxHelperBase implements Se
             __os.writeString(name);
             __os.writeString(artist);
             __os.writeString(path);
+            __os.writeString(coverPath);
             __result.__endWriteParams();
             __result.__send(true);
         }
@@ -767,6 +768,140 @@ public final class ServerPrxHelper extends Ice.ObjectPrxHelperBase implements Se
     public int end_getCount(Ice.AsyncResult __result)
     {
         Ice.AsyncResult.__check(__result, this, __getCount_name);
+        boolean __ok = __result.__wait();
+        try
+        {
+            if(!__ok)
+            {
+                try
+                {
+                    __result.__throwUserException();
+                }
+                catch(Ice.UserException __ex)
+                {
+                    throw new Ice.UnknownUserException(__ex.ice_name(), __ex);
+                }
+            }
+            IceInternal.BasicStream __is = __result.__startReadParams();
+            int __ret;
+            __ret = __is.readInt();
+            __result.__endReadParams();
+            return __ret;
+        }
+        catch(Ice.LocalException ex)
+        {
+            Ice.Instrumentation.InvocationObserver __obsv = __result.__getObserver();
+            if(__obsv != null)
+            {
+                __obsv.failed(ex.ice_name());
+            }
+            throw ex;
+        }
+    }
+
+    private static final String __getFileSize_name = "getFileSize";
+
+    public int getFileSize(String path)
+    {
+        return getFileSize(path, null, false);
+    }
+
+    public int getFileSize(String path, java.util.Map<String, String> __ctx)
+    {
+        return getFileSize(path, __ctx, true);
+    }
+
+    private int getFileSize(String path, java.util.Map<String, String> __ctx, boolean __explicitCtx)
+    {
+        if(__explicitCtx && __ctx == null)
+        {
+            __ctx = _emptyContext;
+        }
+        final Ice.Instrumentation.InvocationObserver __observer = IceInternal.ObserverHelper.get(this, "getFileSize", __ctx);
+        int __cnt = 0;
+        try
+        {
+            while(true)
+            {
+                Ice._ObjectDel __delBase = null;
+                try
+                {
+                    __checkTwowayOnly("getFileSize");
+                    __delBase = __getDelegate(false);
+                    _ServerDel __del = (_ServerDel)__delBase;
+                    return __del.getFileSize(path, __ctx, __observer);
+                }
+                catch(IceInternal.LocalExceptionWrapper __ex)
+                {
+                    __handleExceptionWrapper(__delBase, __ex, __observer);
+                }
+                catch(Ice.LocalException __ex)
+                {
+                    __cnt = __handleException(__delBase, __ex, null, __cnt, __observer);
+                }
+            }
+        }
+        finally
+        {
+            if(__observer != null)
+            {
+                __observer.detach();
+            }
+        }
+    }
+
+    public Ice.AsyncResult begin_getFileSize(String path)
+    {
+        return begin_getFileSize(path, null, false, null);
+    }
+
+    public Ice.AsyncResult begin_getFileSize(String path, java.util.Map<String, String> __ctx)
+    {
+        return begin_getFileSize(path, __ctx, true, null);
+    }
+
+    public Ice.AsyncResult begin_getFileSize(String path, Ice.Callback __cb)
+    {
+        return begin_getFileSize(path, null, false, __cb);
+    }
+
+    public Ice.AsyncResult begin_getFileSize(String path, java.util.Map<String, String> __ctx, Ice.Callback __cb)
+    {
+        return begin_getFileSize(path, __ctx, true, __cb);
+    }
+
+    public Ice.AsyncResult begin_getFileSize(String path, Callback_Server_getFileSize __cb)
+    {
+        return begin_getFileSize(path, null, false, __cb);
+    }
+
+    public Ice.AsyncResult begin_getFileSize(String path, java.util.Map<String, String> __ctx, Callback_Server_getFileSize __cb)
+    {
+        return begin_getFileSize(path, __ctx, true, __cb);
+    }
+
+    private Ice.AsyncResult begin_getFileSize(String path, java.util.Map<String, String> __ctx, boolean __explicitCtx, IceInternal.CallbackBase __cb)
+    {
+        __checkAsyncTwowayOnly(__getFileSize_name);
+        IceInternal.OutgoingAsync __result = new IceInternal.OutgoingAsync(this, __getFileSize_name, __cb);
+        try
+        {
+            __result.__prepare(__getFileSize_name, Ice.OperationMode.Normal, __ctx, __explicitCtx);
+            IceInternal.BasicStream __os = __result.__startWriteParams(Ice.FormatType.DefaultFormat);
+            __os.writeString(path);
+            __result.__endWriteParams();
+            __result.__send(true);
+        }
+        catch(Ice.LocalException __ex)
+        {
+            __result.__exceptionAsync(__ex);
+        }
+        return __result;
+    }
+
+    public int end_getFileSize(Ice.AsyncResult __result)
+    {
+        Ice.AsyncResult.__check(__result, this, __getFileSize_name);
         boolean __ok = __result.__wait();
         try
         {

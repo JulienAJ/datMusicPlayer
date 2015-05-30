@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -36,14 +37,14 @@ public class ServerHandler
     public static String getHostname(String id) { return servers.get(id).getHostname(); }
     public static String getStreamingPort(String id) { return  servers.get(id).getStreamingPort(); }
 
-    public static void addServer(String hostname, String port, String streamingPort)
+    public static void addServer(String hostname, String port)
     {
         try
         {
             if(servers == null)
                 servers = new HashMap<>();
 
-            Server server = new Server(hostname, port, streamingPort);
+            Server server = new Server(hostname, port);
             server.initCommunicator(glacierHostname, glacierPort);
             server.initRouter(user, password);
             server.setUpStorm(stormHostname, stormPort, monitor);
@@ -56,6 +57,32 @@ public class ServerHandler
             Log.e("Ice Server", e.getMessage());
         }
 
+    }
+
+    public static int getNumberOfServers()
+    {
+        return servers.size();
+    }
+
+    public static void removeServer(String id)
+    {
+        servers.remove(id);
+    }
+
+    public static String[] getServersId()
+    {
+        Set<String> set = servers.keySet();
+        return set.toArray(new String[set.size()]);
+    }
+
+    public static boolean ping(String id)
+    {
+        if(servers == null)
+            return false;
+        Server s = servers.get(id);
+        if(s == null)
+            return false;
+        return servers.get(id).ping();
     }
 
     public static void initMonitor(Context context)
@@ -243,12 +270,12 @@ public class ServerHandler
         servers.get(identifier).getServerPrx().write(name, offset, data);
     }
 
-    public static void addSong(String identifier, String name, String artist, String path)
+    public static void addSong(String identifier, String name, String artist, String path, String coverPath)
     {
         if(servers == null)
             return;
 
-        servers.get(identifier).getServerPrx().addSong(name, artist, path);
+        servers.get(identifier).getServerPrx().addSong(name, artist, path, coverPath);
     }
 
     private static song[] setPath(String identifier, song[] original)
@@ -258,6 +285,30 @@ public class ServerHandler
             s.path = identifier + '@' + s.path;
         }
         return original;
+    }
+
+    public static int getFileSize(String identifier, String filePath)
+    {
+        if(servers == null)
+            return 0;
+
+        Server server = servers.get(identifier);
+        if(server == null || server.getServerPrx() == null)
+            return 0;
+
+        return server.getServerPrx().getFileSize(filePath);
+    }
+
+    public static byte[] read(String identifier, String filename, int offset, int count)
+    {
+        if(servers == null)
+            return null;
+
+        Server server = servers.get(identifier);
+        if(server == null || server.getServerPrx() == null)
+            return null;
+
+        return server.getServerPrx().read(filename, offset, count);
     }
 
     public static String cutPath(String original, boolean isId)

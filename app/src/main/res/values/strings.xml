@@ -24,6 +24,7 @@
     <string name="serverPort">Server Port</string>
     <string name="ping">Ping</string>
     <string name="statusOK">Status : OK</string>
+    <string name="statusOFF">Status : OFF</string>
     <string name="cancel">Cancel</string>
     <string name="play">Play</string>
     <string name="pause">Pause</string>
@@ -41,4 +42,18 @@
     <string name="addSuccess">was successfully added</string>
     <string name="confirmRemoveTitle">Confirmation</string>
     <string name="confirmRemoveText">Are you sure you want to remove</string>
+    <string name="serverListEmpty">No servers</string>
+    <string name="serverManagementTitle">Manage Server</string>
+    <string name="removeServer">Remove From Servers</string>
+    <string name="close">Close</string>
+    <string name="speechRecognizer">Speech Recognition</string>
+    <string name="addServerButton">Add Server</string>
+    <string name="statusNeutral">Waiting</string>
+    <string name="serverAddTitle">Add New Server</string>
+    <string name="noServerAdded">No Servers Were Added</string>
+    <string name="serverAdded">A new Server was added</string>
+    <string name="mustPing">You must ping the Server before adding it</string>
+    <string name="serversInList">servers registered</string>
+    <string name="noMP3">The song must mp3 format</string>
+    <string name="cover">Cover</string>
 </resources>

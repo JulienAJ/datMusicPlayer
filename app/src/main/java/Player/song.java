@@ -28,15 +28,18 @@ public class song implements java.lang.Cloneable, java.io.Serializable
 
     public String path;
 
+    public String coverPath;
+
     public song()
     {
     }
 
-    public song(String name, String artist, String path)
+    public song(String name, String artist, String path, String coverPath)
     {
         this.name = name;
         this.artist = artist;
         this.path = path;
+        this.coverPath = coverPath;
     }
 
     public boolean
@@ -75,6 +78,13 @@ public class song implements java.lang.Cloneable, java.io.Serializable
                     return false;
                 }
             }
+            if(coverPath != _r.coverPath)
+            {
+                if(coverPath == null || _r.coverPath == null || !coverPath.equals(_r.coverPath))
+                {
+                    return false;
+                }
+            }
 
             return true;
         }
@@ -90,6 +100,7 @@ public class song implements java.lang.Cloneable, java.io.Serializable
         __h = IceInternal.HashUtil.hashAdd(__h, name);
         __h = IceInternal.HashUtil.hashAdd(__h, artist);
         __h = IceInternal.HashUtil.hashAdd(__h, path);
+        __h = IceInternal.HashUtil.hashAdd(__h, coverPath);
         return __h;
     }
 
@@ -114,6 +125,7 @@ public class song implements java.lang.Cloneable, java.io.Serializable
         __os.writeString(name);
         __os.writeString(artist);
         __os.writeString(path);
+        __os.writeString(coverPath);
     }
 
     public void
@@ -122,7 +134,8 @@ public class song implements java.lang.Cloneable, java.io.Serializable
         name = __is.readString();
         artist = __is.readString();
         path = __is.readString();
+        coverPath = __is.readString();
     }
 
-    public static final long serialVersionUID = 697290888319076233L;
+    public static final long serialVersionUID = -3385583092675533714L;
 }
